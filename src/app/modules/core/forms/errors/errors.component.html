@@ -1,0 +1,3 @@
+<ul *ngIf="getErrorCodes().length" class="bg-error">
+    <li *ngFor="let code of getErrorCodes()">{{getMessage(code)}}</li>
+</ul>

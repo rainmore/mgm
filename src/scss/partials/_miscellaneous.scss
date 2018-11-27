@@ -1,0 +1,42 @@
+/**
+ * miscellaneous.scss
+ *
+ * Other styles.
+ */
+
+.bg-error {
+    border: 1px solid $danger;
+    padding: 5px 30px;
+    background-color: lighten($danger, 40%);
+    color: $danger;
+}
+
+@mixin labelize($bg-color, $font-color) {
+    @include box-shadow(inset 0 1px 0 darken($bg-color, 5%));
+
+    padding: 2px 10px;
+
+    background-color: $bg-color;
+    border-radius: 10px;
+    color: $font-color;
+    font-weight: 400;
+}
+
+.labelize {
+    @include labelize($labelize-bg-color, $labelize-color);
+}
+
+.tag {
+    @include border-radius(50px);
+    @include box-shadow(inset 0 1px 0 darken($tag-primary-bg-color, 5%));
+
+    padding: 2px 10px;
+    background-color: $tag-primary-bg-color;
+    color: $tag-primary-color;
+
+    .text {
+        font-size: 0.85em;
+        font-weight: 400;
+        text-shadow: 0 1px darken($tag-primary-bg-color, 5%);
+    }
+}

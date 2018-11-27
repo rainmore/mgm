@@ -1,0 +1,123 @@
+/**
+ * forms.scss
+ *
+ * Styling for the forms (and it's elements as well as buttons.
+ */
+
+/**
+ * Form, form elements and form error styling.
+ */
+form {
+    fieldset {
+        width: 100%;
+    }
+
+    .form-group {
+        @extend .input-group-sm;
+        @extend .col-12;
+        @extend .col;
+
+        border-top: 1px solid $gray-300;
+        margin-right: 0;
+        margin-bottom: 15px;
+        margin-left: 0;
+        padding-top: 15px;
+        padding-BOTTOM: 15px;
+
+        &:first-of-type {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        &.required {
+            label:after {
+                margin-left: 5px;
+
+                color: red;
+                content: "*";
+            }
+        }
+
+        label {
+            @extend .col-12;
+            @extend .col-sm-3;
+
+            align-self: flex-start;
+            margin-bottom: 0;
+            padding-left: 0;
+            padding-right: 0;
+
+            font-weight: 400;
+        }
+
+        & > .form-control {
+            &:not([type=checkbox]) {
+                @extend .col-12;
+                @extend .col-md-6;
+                padding-left: $input-padding-x-sm;
+                padding-right: $input-padding-x-sm;
+            }
+
+            &[type=checkbox] {
+                @include box-shadow(none);
+            }
+        }
+
+        select {
+            @extend .col-12;
+
+            flex: 0 0 100%;
+            height: $input-height-sm;
+            line-height: $input-height-sm;
+            background-image: none;
+        }
+
+        &.has-error {
+            & > .form-control {
+                background: lighten($danger, 35%);
+            }
+        }
+    }
+
+    errors {
+        @extend .col-12;
+        @extend .col-md-6;
+        @extend .offset-md-3;
+        @extend .no-padding;
+
+        ul {
+            margin-bottom: 0;
+            line-height: 1.6rem;
+        }
+
+        margin-top: 5px;
+    }
+
+    @include media-breakpoint-up(sm) {
+        & {
+            margin-right: 0;
+            margin-left: 0;
+
+            .form-group {
+
+                padding-left: 0;
+                padding-right: 0;
+
+                label, .form-control {
+                    align-self: center;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Button styling.
+ */
+.btn {
+    &.btn-default {
+        border: $btn-default-border;
+        background: $btn-default-bg;
+        color: $btn-default-color;
+    }
+}

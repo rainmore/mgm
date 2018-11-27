@@ -1,0 +1,20 @@
+/**
+ * toastr.scss
+ *
+ * Overriding of any vendor styles.
+ */
+
+@import "~toastr/toastr";
+
+#toast-container {
+    & .toast {
+        @include box-shadow(0 0 10px #666666);
+        opacity: 1;
+
+        &:hover {
+            @include box-shadow(0 0 10px #000000);
+        }
+
+        &.toast-info { background-color: $info; }
+    }
+}

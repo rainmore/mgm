@@ -1,0 +1,96 @@
+/**
+ * navbar.scss
+ *
+ * styles for the navbar for the megamind app.
+ */
+
+#app-navbar {
+    background-color: $navigator-bg-color;
+
+    .navbar {
+        @include fixed-size($header-height);
+
+        align-items: center;
+        background-color: darken($navbar-bg-color, 5%);
+        justify-content: center;
+
+        .navbar-brand {
+            color: $logo-color;
+            font-size: $logo-font-size;
+            text-shadow: 0 1px darken($navbar-bg-color, 25%);
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        & {
+            @include fixed-size($navigator-width);
+        }
+    }
+}
+
+.navigator {
+    h1 {
+        margin-bottom: 10px;
+        padding: 5px 20px;
+
+        color: $primary;
+        font-size: $navigator-font-size-h1;
+        font-weight: $navigator-font-weight-h1;
+        text-transform: uppercase;
+    }
+
+    .nav {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        font-size: $navigator-font-size-menu;
+
+        ul {
+            @extend .full-width;
+
+            border-bottom: 2px solid darken($navbar-bg-color, 5%);
+            display: inline-block;
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            &:first-of-type {
+                padding-top: 0;
+            }
+
+            li {
+                width: inherit;
+                list-style: none;
+
+                .nav-item {
+                    @include transition(
+                        background-color 0.5s,
+                        border-color 0.5s,
+                        color 0.5s);
+
+                    border: none;
+                    border-left: 3px solid transparent;
+                    display: block;
+                    padding: 5px 20px;
+                    width: inherit;
+
+                    background: transparent;
+                    color: #ffffff;
+                    cursor: pointer;
+                    font-weight: 400;
+                    line-height: 2rem;
+                    text-shadow: 0 1px darken($navigator-bg-color, 20%);
+
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        background-color: darken($navbar-bg-color, 5%);
+                        border-color: $primary;
+                        color: #ffffff;
+                        outline: 0;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

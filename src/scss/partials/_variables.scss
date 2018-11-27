@@ -1,0 +1,146 @@
+/**
+ * variables.scss
+ *
+ * All variable declarations and variable overrides for bootstrap. It is better
+ * to have all the variables here so we don't have to deal with strict ordering
+ * of .scss files.
+ */
+
+/**
+ * Options
+ *
+ * Quickly modify global styling by enabling or disabling optional features.
+ */
+$enable-flex:        true;
+$enable-rounded:     true;
+$enable-shadows:     true;
+$enable-gradients:   true;
+$enable-transitions: true;
+
+/**
+ * Colors
+ *
+ * Grayscale and brand colors.
+ */
+$gray: #55595c;
+
+$body-bg:            #d4dae5;
+$primary:            #259fe9;
+$secondary:          #e6e94d;
+$font-color-primary: #68788c;
+
+$border-color-primary: #d9dfe9;
+
+/**
+ * Links
+ *
+ * Style anchor elements.
+ */
+$link-color:      #53c4e8;
+$link-decoration: none;
+
+/**
+ * Typography
+ *
+ * Font, line-height, and color for body text, headings, and more.
+ */
+$font-family-base: Roboto;
+
+/**
+ * Tables
+ *
+ * Table colors, any more.
+ */
+$table-bg:        #ffffff;
+$table-bg-accent: #fcfdfe;
+$table-bg-hover:  lighten($secondary, 36%);
+
+/**
+ * Forms
+ *
+ * Form related elements (inputs, etc).
+ */
+$input-border:           $border-color-primary;
+$input-border-focus:     $font-color-primary;
+$input-box-shadow-focus: none;
+$input-padding-x-sm:     0.5rem;
+
+$input-group-btn-bg-color:     #f8f8f8;
+$input-group-btn-border-color: $border-color-primary;
+
+/**
+ * Buttons
+ *
+ * Site-wide buttons.
+ */
+$btn-default-bg:     #dfdfdf;
+$btn-default-border: 1px solid #cccccc;
+$btn-default-color:  $font-color-primary;
+
+/**
+ * Header
+ *
+ * Header elements.
+ */
+$header-height: 50px;
+
+$logo-color:      #ffffff;
+$logo-font-size:  1.6rem;
+
+$navbar-color:    #ffffff;
+$navbar-bg-color: #33475f;
+
+/**
+ * Navigator
+ *
+ * Navigator styles and colors.
+ */
+$navigator-width:    200px;
+$navigator-color:    $navbar-color;
+$navigator-bg-color: $navbar-bg-color;
+
+$navigator-font-size-h1:   0.9rem;
+$navigator-color-h1:       #ffffff;
+$navigator-font-size-menu: 0.85rem;
+$navigator-font-weight-h1: 500;
+
+/**
+ * Panels
+ *
+ * Panel header and body styling.
+ */
+$header-pane-color: $font-color-primary;
+$header-pane-bg-color: #eef1f7;
+$header-pane-border-color: $border-color-primary;
+$header-pane-title-font-size: 1.4em;
+
+$panel-header-font-size: 1.1rem;
+$panel-header-line-height: 1.6rem;
+$panel-header-color: $header-pane-color;
+$panel-header-bg-color: $header-pane-bg-color;
+$panel-header-border-color: $header-pane-border-color;
+
+$panel-bg-color: #ffffff;
+$panel-color: #929eb6;
+$panel-font-size: 0.9rem;
+
+/**
+ * Action Bar
+ *
+ * Style the action bar (content menu bar).
+ */
+$action-bar-bg-color: $header-pane-bg-color;
+$action-bar-bg-hover-color: $panel-bg-color;
+$action-bar-border-color: $header-pane-border-color;
+$action-bar-color: $header-pane-color;
+
+/**
+ * Other styles
+ *
+ * Miscellaneous and co.
+ */
+$tag-primary-bg-color: #8a97b1;
+$tag-primary-color: #ffffff;
+
+$labelize-bg-color: $gray;
+$labelize-color: #ffffff;

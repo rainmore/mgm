@@ -1,0 +1,145 @@
+/**
+ * panels.scss
+ *
+ * Styling of "panels" and their common elements.
+ */
+
+.body-pane {
+    @extend .xs-1;
+    @extend .col-xs;
+
+    .header-pane {
+        @include box-shadow(0 1px 1px darken($header-pane-bg-color, 15%));
+
+        padding: 25px 20px;
+
+        background-color: $header-pane-bg-color;
+        color: $header-pane-color;
+        text-shadow: 0 1px #ffffff;
+
+        .title-bar {
+            @extend .row-xs;
+
+            .title {
+                font-size: $header-pane-title-font-size;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.card {
+    @extend .col-xs;
+    @include border-radius(3px);
+    @include box-shadow(1px 1px 1px darken($panel-header-bg-color, 15%));
+
+    margin: 20px 20px 0 20px;
+    border-top: 1px solid #f2f5f9;
+
+    background-color: $panel-bg-color;
+    color: $panel-color;
+    font-size: $panel-font-size;
+    font-weight: 300;
+
+    &.panel-empty {
+        @include box-shadow(none);
+
+        border: none;
+        background: transparent;
+    }
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        border-bottom: 1px solid $panel-header-border-color;
+        background-color: $panel-header-bg-color;
+        color: $panel-header-color;
+
+        .title-bar {
+            @extend .row-xs;
+
+            padding: 10px 20px;
+
+            .title {
+                @extend .align-self-start;
+                @extend .xs-1;
+
+                font-size: $panel-header-font-size;
+                font-weight: 500;
+                line-height: $panel-header-line-height;
+                text-shadow: 0 1px #ffffff;
+            }
+
+            .tag {
+                @extend .align-self-end;
+                @extend .justify-content-end;
+            }
+        }
+
+        &.with-action-bar .title-bar {
+            border-bottom: 1px solid $panel-header-border-color;
+        }
+
+        .action-bar {
+            @extend .row;
+            @extend .space-between;
+
+            border-top: 1px solid #fbfbfb;
+
+            ul {
+                @extend .row-xs;
+                list-style: none;
+
+                li {
+                    a {
+                        @include transition(
+                                background-color 0.5s,
+                                color 0.5s);
+
+                        border-right: 1px solid $action-bar-border-color;
+                        display: inline-block;
+                        padding: 10px 20px;
+
+                        background-color: $action-bar-bg-color;
+                        color: $action-bar-color;
+                        cursor: pointer;
+                        font-size: 0.80rem;
+                        font-weight: 500;
+
+                        &:hover {
+                            background-color: $action-bar-bg-hover-color;
+                            color: lighten($action-bar-color, 30%);
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+            .extra {
+                margin-right: 20px;
+                margin-left: 20px;
+            }
+        }
+    }
+
+    .card-content {
+        &.actions {
+            @extend .row;
+            @extend .center;
+
+            .btn {
+                margin-right: 15px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    &.card-padded, .card-padded {
+        padding: 20px;
+    }
+}

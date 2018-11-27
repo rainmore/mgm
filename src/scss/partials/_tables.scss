@@ -1,0 +1,41 @@
+/**
+ * tables.scss
+ *
+ * Table styling.
+ */
+
+.table {
+    margin-bottom: 0;
+
+    &, th, td {
+        border-color: $header-pane-border-color;
+    }
+    th, td {
+        border-left: 1px solid $header-pane-border-color;
+    }
+    th:first-of-type, td:first-of-type {
+        border-left: none;
+    }
+
+    th {
+        border-top: none;
+        font-weight: 500;
+    }
+
+    // fixing hover with stripes
+    &.table-hover {
+        tbody tr {
+            @include hover {
+                background-color: $table-bg-hover;
+            }
+        }
+    }
+
+    .actions a {
+        margin-left: 5px;
+
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}

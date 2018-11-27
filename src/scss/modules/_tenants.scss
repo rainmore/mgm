@@ -1,0 +1,30 @@
+/**
+ * tenants.scss
+ *
+ * specific styles for tenants module.
+ */
+
+.tenants {
+    &.table tbody tr {
+        td:first-of-type {
+            border-left: 4px solid transparent;
+        }
+        &.unsynced {
+            background-color: lighten($warning, 30%);
+
+            td:first-of-type {
+                border-left-color: $warning;
+            }
+        }
+    }
+}
+
+.rollout {
+    &.dev  { @include labelize(#2196f3, #ffffff); }
+    &.live { @include labelize(#9c27b0, #ffffff); }
+    &.playground { @include labelize(#4caf50, #ffffff); }
+    &.partner { @include labelize(#cddc39, #ffffff); }
+    &.demo { @include labelize(#e91e63, #ffffff); }
+    &.live_new { @include labelize(#ff5722, #ffffff); }
+    &.live_us { @include labelize(#607d8b, #ffffff); }
+}

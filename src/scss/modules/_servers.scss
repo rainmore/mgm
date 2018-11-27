@@ -1,0 +1,12 @@
+/**
+ * servers.scss
+ *
+ * specific styles for servers module.
+ */
+
+.role {
+    &.application { @include labelize(#00c6c7, #ffffff); }
+    &.database    { @include labelize(#dd7a81, #ffffff); }
+    &.chancellor  { @include labelize(#fb9757, #ffffff); }
+    &.steward     { @include labelize(#b5a1db, #ffffff); }
+}

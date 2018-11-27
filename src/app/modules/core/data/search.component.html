@@ -1,0 +1,10 @@
+<div class="input-group input-group-sm">
+    <input class="form-control"
+           [(ngModel)]="searchTerm"
+           (keydown.enter)="search()" />
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="search()">
+            {{ _('Search') }}
+        </button>
+    </span>
+</div>

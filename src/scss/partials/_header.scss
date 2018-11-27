@@ -1,0 +1,9 @@
+#app-header {
+    @include fixed-size($header-height);
+
+    background-color: $navbar-bg-color;
+
+    &, a {
+        color: $navbar-color;
+    }
+}

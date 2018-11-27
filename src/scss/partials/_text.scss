@@ -1,0 +1,43 @@
+/**
+ * text.scss
+ *
+ * Include all text size, style and formatting specifications here (inc. padding, margins).
+ */
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/**
+ * Link styling
+ */
+a {
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.inversed,
+    &.inversed:not([href]):not([tabindex]) {
+        @include border-radius(4px);
+
+        padding: 2px 4px;
+        background-color: $link-color;
+        color: #ffffff;
+    }
+
+    &.small {
+        font-weight: 300;
+    }
+}
+
+.btn-link {
+    text-decoration: $link-decoration;
+}

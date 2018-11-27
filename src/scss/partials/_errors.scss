@@ -1,0 +1,15 @@
+/**
+ * errors.scss
+ *
+ * Styling for errors.
+ */
+
+.content-pane {
+    .errors {
+        ul {
+            margin-bottom: 0;
+            padding: 10px 30px;
+            line-height: 1.6rem;
+        }
+    }
+}

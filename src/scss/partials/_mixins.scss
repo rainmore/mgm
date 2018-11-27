@@ -1,0 +1,13 @@
+/**
+ * mixins.scss
+ *
+ * Base definition of common mixins.
+ */
+
+@mixin box-model($model) {
+    -webkit-box-sizing: $model;
+       -moz-box-sizing: $model;
+        -ms-box-sizing: $model;
+         -o-box-sizing: $model;
+            box-sizing: $model;
+}
