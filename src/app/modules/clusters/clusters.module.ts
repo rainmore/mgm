@@ -5,14 +5,14 @@ import { ReactiveFormsModule }   from "@angular/forms";
 import { ClustersRoutingModule } from "./clusters-routing.module";
 import { FormComponent }         from "./form.component";
 import { ListComponent }         from "./list.component";
-import { ErrorsModule }          from "../errors/errors.module";
+import { BaseModule }            from "../base";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ClustersRoutingModule,
-        ErrorsModule
+        BaseModule
     ],
     declarations: [
         FormComponent,

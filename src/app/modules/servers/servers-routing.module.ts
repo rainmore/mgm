@@ -1,9 +1,8 @@
-import { Routes, RouterModule }  from '@angular/router';
-import { NgModule }              from '@angular/core';
-import { ListComponent }         from "./list.component";
-import { FormComponent }         from "./form.component";
-import { PageNotFoundComponent } from "../errors";
-import { ErrorsModule }          from "../errors/errors.module";
+import { Routes, RouterModule }              from '@angular/router';
+import { NgModule }                          from '@angular/core';
+import { ListComponent }                     from "./list.component";
+import { FormComponent }                     from "./form.component";
+import { BaseModule, PageNotFoundComponent } from "../base";
 
 const routes: Routes = [
     { path: '', component: ListComponent},
@@ -15,7 +14,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(routes),
-        ErrorsModule
+        BaseModule
     ],
     exports: [RouterModule]
 })

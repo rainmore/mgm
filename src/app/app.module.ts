@@ -5,7 +5,8 @@ import { HttpClientModule }                 from '@angular/common/http';
 import { AppComponent }                     from './app.component';
 import { AppRoutingModule }                 from './app-routing.module';
 import { HomeComponent }                    from "./modules/home";
-import { NavComponent }                     from "./modules/components/nav";
+import { NavComponent }                     from "./modules/components";
+import { BaseModule }                       from "./modules/base";
 
 // used to create fake backend
 
@@ -16,7 +17,8 @@ import { NavComponent }                     from "./modules/components/nav";
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BaseModule
     ],
     declarations: [
         NavComponent,

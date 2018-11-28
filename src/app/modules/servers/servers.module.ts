@@ -4,15 +4,15 @@ import { CommonModule }         from "@angular/common";
 import { ReactiveFormsModule }  from "@angular/forms";
 import { FormComponent }        from "./form.component";
 import { ListComponent }        from "./list.component";
-import { ErrorsModule }         from "../errors/errors.module";
 import { ServersRoutingModule } from "./servers-routing.module";
+import { BaseModule }           from "../base";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ServersRoutingModule,
-        ErrorsModule
+        BaseModule
     ],
     declarations: [
         FormComponent,
