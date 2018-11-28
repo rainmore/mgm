@@ -4,24 +4,29 @@
  * Base SCSS file for all SCSS files that will be included. All /scss files which be compiled into
  * the app.css file inside this directory.
  */
-@import "partials/variables";
-@import "partials/mixins";
+//@import "partials/variables";
+//@import "partials/mixins";
+//
+//@import "vendor/google";
+//@import "vendor/bootstrap";
+//@import "vendor/toastr";
+//
+//@import "partials/grid";
+//@import "partials/layout";
+//@import "partials/text";
+//
+//@import "partials/miscellaneous";
+//@import "partials/errors";
+//@import "partials/header";
+//@import "partials/navbar";
+//@import "partials/forms";
+//@import "partials/panels";
+//@import "partials/tables";
+//
+//@import "modules/servers";
+//@import "modules/tenants";
 
-@import "vendor/google";
-@import "vendor/bootstrap";
-@import "vendor/toastr";
 
-@import "partials/grid";
-@import "partials/layout";
-@import "partials/text";
-
-@import "partials/miscellaneous";
-@import "partials/errors";
-@import "partials/header";
-@import "partials/navbar";
-@import "partials/forms";
-@import "partials/panels";
-@import "partials/tables";
-
-@import "modules/servers";
-@import "modules/tenants";
+body {
+    background-color: #f2f5f9;
+}

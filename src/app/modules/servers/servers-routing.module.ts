@@ -1,4 +1,4 @@
-﻿import { Routes, RouterModule }  from '@angular/router';
+import { Routes, RouterModule }  from '@angular/router';
 import { NgModule }              from '@angular/core';
 import { ListComponent }         from "./list.component";
 import { FormComponent }         from "./form.component";
@@ -13,10 +13,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-      RouterModule.forChild(routes),
-      ErrorsModule
-  ],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forChild(routes),
+        ErrorsModule
+    ],
+    exports: [RouterModule]
 })
-export class RegionsRoutingModule { }
+export class ServersRoutingModule { }

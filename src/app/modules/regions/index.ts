@@ -1,1 +1,1 @@
-export * from './regions.module'
+export * from './regions.module';

@@ -1,29 +1,31 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
-
-// import { HomeComponent } from './home';
-// import { LoginComponent } from './login';
-// import { RegisterComponent } from './register';
-// import { AuthGuard } from './_guards';
-import { NgModule } from '@angular/core';
+import { NgModule }             from '@angular/core';
+import { HomeComponent }        from "./modules/home";
 
 const routes: Routes = [
-    // { path: '', component: HomeComponent/*, canActivate: [AuthGuard] */},
-    // { path: 'roles', component: UsersRoleModule},
-    // {
-    //     path: 'users/roles',
-    //     loadChildren: './users/roles/roles.module#RolesModule'
-    // },
-    // { path: 'login', component: LoginComponent },
-    // { path: 'register', component: RegisterComponent },
-
+    { path: '', component: HomeComponent},
+    {
+        path: 'tenants',
+        loadChildren: './modules/tenants/tenants.module#TenantsModule'
+    },
+    {
+        path: 'servers',
+        loadChildren: './modules/servers/servers.module#ServersModule'
+    },
+    {
+        path: 'clusters',
+        loadChildren: './modules/clusters/clusters.module#ClustersModule'
+    },
+    {
+        path: 'regions',
+        loadChildren: './modules/regions/regions.module#RegionsModule'
+    },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: []
 })

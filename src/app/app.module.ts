@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }                 from '@angular/common/http';
 import { AppComponent }                     from './app.component';
 import { AppRoutingModule }                 from './app-routing.module';
+import { HomeComponent }                    from "./modules/home";
+import { NavComponent }                     from "./modules/components/nav";
 
 // used to create fake backend
 
@@ -17,6 +19,8 @@ import { AppRoutingModule }                 from './app-routing.module';
         AppRoutingModule
     ],
     declarations: [
+        NavComponent,
+        HomeComponent,
         AppComponent
     ],
     providers: [],

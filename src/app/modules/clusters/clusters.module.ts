@@ -2,7 +2,7 @@
 import { NgModule }              from '@angular/core';
 import { CommonModule }          from "@angular/common";
 import { ReactiveFormsModule }   from "@angular/forms";
-import { RegionsRoutingModule }  from "./regions-routing.module";
+import { ClustersRoutingModule } from "./clusters-routing.module";
 import { FormComponent }         from "./form.component";
 import { ListComponent }         from "./list.component";
 import { ErrorsModule }          from "../errors/errors.module";
@@ -11,7 +11,7 @@ import { ErrorsModule }          from "../errors/errors.module";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        RegionsRoutingModule,
+        ClustersRoutingModule,
         ErrorsModule
     ],
     declarations: [
@@ -23,5 +23,5 @@ import { ErrorsModule }          from "../errors/errors.module";
         // RegionsService
     ]
 })
-export class RegionsModule {
+export class ClustersModule {
 }
