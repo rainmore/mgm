@@ -8,9 +8,6 @@ import { HomeComponent }                    from "./modules/home";
 import { NavComponent }                     from "./modules/components";
 import { BaseModule }                       from "./modules/base";
 
-// used to create fake backend
-
-
 @NgModule({
     imports: [
         BrowserModule,

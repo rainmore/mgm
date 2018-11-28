@@ -1,5 +1,5 @@
 export const projectConfiguration = {
-    projectName: 'megamind',
+    projectName: 'Megamind',
     apiUrl     : '/backend',
     cssUrl     : 'css/app.css'
 };

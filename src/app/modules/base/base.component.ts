@@ -11,6 +11,7 @@ export abstract class BaseComponent {
      * The title of the page the controller handles.
      */
     title: string;
+    titleTag: string;
 
     /**
      * Holder for errors (deletion errors, etc).

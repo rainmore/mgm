@@ -1,8 +1,11 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component }            from '@angular/core';
+import { projectConfiguration } from "./configs";
 
 @Component({
     selector: 'app',
     templateUrl: 'app.component.html'
 })
+export class AppComponent {
 
-export class AppComponent { }
+    projectName = projectConfiguration.projectName
+}

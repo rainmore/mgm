@@ -1,16 +1,28 @@
 <section class="body-pane">
-    <page-title [title]="title"></page-title>
+    <section class="content-pane">
+        <article class="card">
+            <header class="card-header with-action-bar">
+                <page-title [title]="title" [tag]="titleTag"></page-title>
+                <div class="action-bar">
+                    <ul>
+                        <li>
+                            <a class="nav-item"
+                               routerLink="/clusters/add"
+                               routerLinkActive="disabled">{{_('Add Cluster')}}</a>
+                        </li>
+                        <li>
+                            <a class="nav-item"
+                               (click)="refreshRegions()">{{ _('Refresh') }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+        </article>
+        <article class="card">
+            <p>
 
-<ul>
-    <li>
-        <button class="nav-item"
-                routerLink="/clusters/add"
-                routerLinkActive="disabled">Add</button>
-    </li>
-</ul>
-
-<p>
-
-    clusters will be here
-</p>
+                clusters will be here
+            </p>
+        </article>
+    </section>
 </section>

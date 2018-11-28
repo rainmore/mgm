@@ -3,6 +3,7 @@ import { CommonModule }          from "@angular/common";
 import { PageNotFoundComponent } from "./errors/page-not-found.component";
 import { LanguageService }       from "../../services/i18n";
 import { PageTitleComponent }    from "../components/page-title.component";
+import { RegionsService }        from "../../services/regions";
 
 @NgModule({
     imports: [
@@ -16,7 +17,10 @@ import { PageTitleComponent }    from "../components/page-title.component";
         PageNotFoundComponent,
         PageTitleComponent
     ],
-    providers: [LanguageService]
+    providers: [
+        LanguageService,
+        RegionsService
+    ]
 })
 export class BaseModule {
 }

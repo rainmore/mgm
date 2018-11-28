@@ -4,7 +4,7 @@ import { Injectable }                              from '@angular/core';
 import { Resource, RestService as HalRestService } from 'angular4-hal';
 
 @Injectable()
-export class RestService<T extends Resource> extends HalRestService<T> {
+export abstract class RestService<T extends Resource> extends HalRestService<T> {
 
     /**
      * @param {string?} projection

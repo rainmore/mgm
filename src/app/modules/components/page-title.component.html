@@ -1,5 +1,6 @@
-<header class="header-pane">
-    <div class="title-bar">
-        <h1 class="title">{{ title }}</h1>
+<div class="title-bar">
+    <h1 class="title">{{ title }}</h1>
+    <div class="tag" *ngIf="tag">
+        <span class="text">{{ tag }}</span>
     </div>
-</header>
+</div>

@@ -8,5 +8,6 @@ import { first }                    from 'rxjs/operators';
 export class PageTitleComponent {
 
     @Input() title: String;
+    @Input() tag: String;
 
 }

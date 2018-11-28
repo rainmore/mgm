@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": "",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": [ "es2015", "dom" ],
@@ -10,4 +11,17 @@
         "suppressImplicitAnyIndexErrors": true,
         "target": "es5"
     }
+//
+//    "typeRoots": [
+//        "node_modules/@types"
+//    ],
+//    "paths": {
+//        "@angular/*": ["node_modules/@angular/*"]
+//    },
+//    "exclude": [
+//        "node_modules/angular4-hal/node_modules",
+//        "node_modules/angular4-hal/node_modules/*",
+//        "node_modules/angular4-hal/node_modules/@angular/core/src/render3/ng_dev_mode.d.ts",
+//        "**/*.spec.ts"
+//    ]
 }

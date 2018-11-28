@@ -1,28 +1,18 @@
 ﻿<!-- main app container -->
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 offset-sm-3">
-                <section id="app" class="xs-1 col-xs row-md">
+<section id="app" class="xs-1 col-xs row-md">
 
-                    <section id="app-body" class="col-xs md-1 col-xs-last">
-                        <header id="app-header" class="col-xs row-md">
-                        </header>
-                        <section id="app-content" class="col-xs md-1">
-                            <router-outlet></router-outlet>
-                        </section>
-                    </section>
+    <section id="app-body" class="col-xs md-1 col-xs-last">
+        <header id="app-header" class="col-xs row-md"></header>
+        <section id="app-content" class="col-xs md-1">
+            <router-outlet></router-outlet>
+        </section>
+    </section>
 
-                    <aside id="app-navbar" class="col-md col-xs-first">
-                        <section class="navbar row-xs">
-                            <a class="navbar-brand" href="#">{{ projectName }}</a>
-                        </section>
-                        <navigation class="xs-1 col-xs"></navigation>
-                    </aside>
+    <aside id="app-navbar" class="col-md col-xs-first">
+        <section class="navbar row-xs">
+            <a class="navbar-brand" href="#">{{ projectName }}</a>
+        </section>
+        <navigation class="xs-1 col-xs"></navigation>
+    </aside>
 
-                </section>
-            </div>
-        </div>
-    </div>
-</div>
-
+</section>
