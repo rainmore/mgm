@@ -1,4 +1,5 @@
-import { Component, Input }     from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormControl }      from "@angular/forms";
 
 /**
  * This class handles the rendering of form errors.
@@ -11,7 +12,10 @@ export class ErrorsComponent {
     @Input() errors: { [ key: string ]: string };
     @Input() messages: { [ key: string ]: string };
 
+
     getErrorCodes(): Array<string> {
+        console.log(this.errors);
+
         return this.errors ? Object.keys(this.errors).filter(key => this.errors[ key ]) : [];
     }
 

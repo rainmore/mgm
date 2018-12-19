@@ -1,9 +1,6 @@
-import { Observable } from 'rxjs';
-
-import { Injectable }                              from '@angular/core';
+import { Observable }                              from 'rxjs';
 import { Resource, RestService as HalRestService } from 'angular4-hal';
 
-@Injectable()
 export abstract class RestService<T extends Resource> extends HalRestService<T> {
 
     /**

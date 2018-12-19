@@ -11,7 +11,8 @@ export const Uri = {
 };
 
 @Injectable()
-export class TenantsService extends RestService<Tenant> {
+export class TenantsService
+    extends RestService<Tenant> {
 
     constructor(
         injector: Injector,
@@ -31,8 +32,21 @@ export class TenantsService extends RestService<Tenant> {
     /**
      * @returns {Observable<*>}
      */
-    synchronize(tenant: Tenant): Observable<any> {
+    synchronizeTenant(tenant: Tenant): Observable<any> {
         const uri = URI(projectConfiguration.apiUrl).segment(Tenant.collection).segment(tenant.id).segment(Uri.synchronize);
         return this.httpClient.post(uri.toString(), null);
     }
+
+    /**
+     * Synchronize a specific tenants, or all tenants.
+     */
+    synchronize(tenant?: Tenant) {
+        if (tenant) {
+            this.synchronizeTenant(tenant);
+        }
+        else {
+            this.synchronizeAll();
+        }
+    }
+
 }

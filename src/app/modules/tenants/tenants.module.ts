@@ -6,12 +6,17 @@ import { FormComponent }        from "./form.component";
 import { ListComponent }        from "./list.component";
 import { TenantsRoutingModule } from "./tenants-routing.module";
 import { BaseModule }           from "../base";
+import { TenantsService }       from "../../services/tenants";
+import { AngularHalModule }     from "angular4-hal";
+import { HalConfiguration }     from "../../configs";
+import { FlashModule }          from "../../services/flash";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         TenantsRoutingModule,
+        FlashModule,
         BaseModule
     ],
     declarations: [
@@ -21,6 +26,7 @@ import { BaseModule }           from "../base";
     exports: [RouterModule],
     providers: [
         // RegionsService
+        TenantsService
     ]
 })
 export class TenantsModule {
