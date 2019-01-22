@@ -3,79 +3,78 @@
         <article class="card">
             <header class="card-header with-action-bar">
                 <page-title [title]="title"></page-title>
+                <div class="action-bar">
+                    <ul>
+                        <li>
+                            <a class="nav-item"
+                               routerLink="/regions"
+                               routerLinkActive="disabled">{{_('Region Information')}}</a>
+                        </li>
+                    </ul>
+                </div>
             </header>
         </article>
         <article class="card">
 
-            <form #formDir="ngForm" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div [hidden]="formDir.submitted">
-
-                    <div class="cross-validation" [class.cross-validation-error]="form.errors?.identityRevealed && (form.touched || form.dirty)">
+            <form class="form-inline" novalidate [formGroup]="form" (ngSubmit)="save()">
+                <fieldset class="card">
+                    <header class="card-header">
+                        <div class="title-bar">
+                            <h3 class="title">{{ formTitle }}</h3>
+                        </div>
+                    </header>
+                    <section class="card-content card-padded col-xs col-xs-12">
                         <div class="form-group required">
-
                             <label for="name">{{ _('Name') }}</label>
-                            <input id="name" class="form-control"
-                                   formControlName="name" required />
 
-                            <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                                 class="alert alert-danger">
+                            <input type="text" id="name" name="name" class="form-control" required
+                                   formControlName="name" />
 
-                                <div *ngIf="name.errors.required">
-                                    Name is required.
-                                </div>
-                                <div *ngIf="name.errors.maxLength">
-                                    Name max length is 100
-                                </div>
-                            </div>
+                            <errors [formGroup]="form" formControlName="name" [messages]="{
+                                required: _('Name is required')
+                            }"></errors>
+
+                            <div *ngIf="form.get('name').hasError('required')">lalalal</div>
+
+                            <ul *ngIf="submitted && formControl.name.errors" class="bg-error">
+                                <li *ngIf="formControl.name.errors.required">{{ _('Name is required') }}</li>
+                                <li *ngIf="formControl.name.errors.maxLength">{{ _('Max length is 100') }}</li>
+                            </ul>
+
                         </div>
                         <div class="form-group required">
+                            <label for="name">{{ _('Display Name') }}</label>
 
-                            <label for="displayName">{{ _('Display Name') }}</label>
-                            <input id="displayName" class="form-control"
-                                   formControlName="displayName" required />
+                            <input type="text" id="displayName" name="displayName" class="form-control" required
+                                   formControlName="displayName" />
 
-                            <div *ngIf="displayName.invalid && (displayName.dirty || displayName.touched)"
-                                 class="alert alert-danger">
+                            <ul *ngIf="submitted && formControl.displayName.errors" class="bg-error">
+                                <li *ngIf="formControl.displayName.errors.required">{{ _('Display Name is required') }}</li>
+                                <li *ngIf="formControl.displayName.errors.maxLength">{{ _('Max length is 100') }}</li>
+                            </ul>
 
-                                <div *ngIf="displayName.errors.required">
-                                    Name is required.
-                                </div>
-                                <div *ngIf="displayName.errors.maxLength">
-                                    Name max length is 100
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="active">Active</label>
-                            <input id="active" class="form-control" type="checkbox"
-                                   formControlName="active"  />
+                        <div class="form-group" *ngIf="region.id">
+                            <label>{{ _('Created Date') }}</label>
+                            <span>{{ region.createdAt | date: 'medium' }}</span>
                         </div>
-                    </div>
-                    <div class="form-group" *ngIf="region.id">
-                        <label>{{ _('Created Date') }}</label>
-                        <span>{{ region.createdAt | date: 'medium' }}</span>
-                    </div>
-                </div>
+                    </section>
+                </fieldset>
 
+                <fieldset class="card">
+                    <section class="card-content card-padded actions">
+                        <button type="button" class="btn btn-default"
+                                (click)="goToListPage()">
+                            {{ _('Cancel') }}
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                [disabled]="submitted">
+                            {{ _('Submit') }}
+                        </button>
+                    </section>
 
-                <div [hidden]="formDir.submitted" class="form-group">
-                    <button type="submit" class="btn btn-primary"
-                            [disabled]="form.invalid || loading">{{ _('Submit') }}</button>
-                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    <button type="button" class="btn btn-default"
-                            (click)="formDir.resetForm({})">{{ _('Cancel') }}</button>
-
-
-                    <!--<button [disabled]="loading" class="btn btn-primary">Save</button>-->
-                    <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
-                    <!--<button type="reset" class="btn">Cancel</button>-->
-                </div>
-
-
+                </fieldset>
             </form>
-
-
 
         </article>
     </section>

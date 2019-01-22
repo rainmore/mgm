@@ -16,6 +16,8 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
     submitted = false;
     returnUrl: string;
 
+    formTitle: string;
+
     constructor(
         languageService: LanguageService,
         // private regionService: RegionsService,
@@ -25,13 +27,14 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
         private location: Location
     ) {
         super(languageService);
+
+
+        this.formTitle = this.getId()
+            ? this._('Edit Region')
+            : this._('Add Region');
     }
 
     ngOnInit() {
-        this.title = this.getId()
-            ? this._('Edit Region')
-            : this._('Add Region');
-
         this.region = this.getEntity();
 
         this.form = new FormGroup({
@@ -42,8 +45,7 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
             'displayName': new FormControl(this.region.displayName, [
                 Validators.required,
                 Validators.maxLength(100)
-            ]),
-            'createdAt': new FormControl(this.region.createdAt)
+            ])
         });
     }
 

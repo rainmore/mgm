@@ -16,7 +16,7 @@ export class FormComponent extends BaseComponent implements OnInit {
     @Input() rolloutGroups: RolloutGroup[] = [];
     @Input() rtos: Rto[] = [];
 
-    tenantTitle: String;
+    formTitle: String;
 
     form: FormGroup;
     submitted = false;
@@ -32,7 +32,7 @@ export class FormComponent extends BaseComponent implements OnInit {
 
         this.title = this._('Tenant Management');
 
-        this.tenantTitle = this.getId()
+        this.formTitle = this.getId()
             ? this._('Edit Tenant')
             : this._('Add Tenant');
 

@@ -15,11 +15,11 @@
             </header>
         </article>
         <article class="card">
-            <form class="form-inline" novalidate [formGroup]="form" #formDir="ngForm" (ngSubmit)="save()">
+            <form class="form-inline" novalidate [formGroup]="form" (ngSubmit)="save()">
                 <fieldset class="card">
                     <header class="card-header">
                         <div class="title-bar">
-                            <h3 class="title">{{ tenantTitle }}</h3>
+                            <h3 class="title">{{ formTitle }}</h3>
                         </div>
                     </header>
                     <section class="card-content card-padded col-xs col-xs-12">
@@ -53,6 +53,11 @@
 
                             <input type="text" id="name" name="name" class="form-control" required
                                    formControlName="name" />
+
+                            <errors [formGroup]="form" [controlName]="'name'" [messages]="{
+                                required: _('Name is required')
+                            }"></errors>
+
                             <ul *ngIf="submitted && formControl.name.errors" class="bg-error">
                                 <li *ngIf="formControl.name.errors.required">{{ _('Name is required') }}</li>
                                 <li *ngIf="formControl.name.errors.maxLength">{{ _('Max length is 100') }}</li>
