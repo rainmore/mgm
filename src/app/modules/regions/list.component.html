@@ -12,7 +12,7 @@
                         </li>
                         <li>
                             <a class="nav-item"
-                               (click)="refreshRegions()">{{ _('Refresh') }}</a>
+                               (click)="refresh()">{{ _('Refresh') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let region of data">
-                        <td><a (click)="edit(region)">{{ region.displayName }} ({{ region.name }})</a></td>
+                        <td><a (click)="edit(region)">{{ region }}</a></td>
                         <td>{{ region.createdAt | date: 'medium' }}</td>
                         <td class="actions">
                             <a (click)="delete(region)" class="inversed small">

@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { RestService }          from '../rest.service';
+import { BaseRestService }      from '../base-rest-service';
 import { Server }               from '../../domains';
 
 @Injectable()
-export class ServersService extends RestService<Server> {
+export class ServersService extends BaseRestService<Server> {
 
     constructor(injector: Injector) {
         super(Server, Server.collection, injector);

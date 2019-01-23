@@ -1,5 +1,7 @@
-import { Resource } from 'angular4-hal';
-import { Region }   from '..';
+import { Resource }      from 'angular4-hal';
+import { Region }        from '..';
+import { Observable }    from "rxjs";
+import { RegionBuilder } from "../regions/region-builder";
 
 /**
  * Model to represent a cluster.
@@ -18,4 +20,9 @@ export class Cluster extends Resource {
     id: string;
     name: string;
     createdAt: Date;
+
+    getRegion(): Observable<Region> {
+        return this.getRelation(Region, Cluster.links.region, new RegionBuilder());
+    }
 }
+

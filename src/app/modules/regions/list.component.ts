@@ -4,28 +4,22 @@ import { BasePageComponent }              from "../core/components";
 import { LanguageService }                from "../../services/i18n";
 import { RegionsService }                 from "../../services/regions";
 import { BaseGridsComponent }             from "../base";
-import { Region }                         from "../../domains";
+import { Cluster, Region }                from "../../domains";
 import { ActivatedRouteSnapshot, Router } from "@angular/router";
-import { Page, Pageable, Projection }     from "../../services/rest.service";
 import { SearchService }                  from "../core/data";
 
 const searchFields: Array<string> = [ 'name', 'displayName' ];
 const sortFields: Array<string> = [ 'displayName' ];
 
 
-@Component({
-    templateUrl: 'list.component.html',
-    providers  : [ RegionsService ]
-})
+@Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Region> implements OnInit {
 
     @Input() data: Region[] = [];
 
-    selectedItem: Region;
-
     constructor(
         languageService: LanguageService,
-        // private regionService: RegionsService,
+        private regionService: RegionsService,
         // private searchService: SearchService,
         private router: Router
         ) {
@@ -34,25 +28,32 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
 
     ngOnInit() {
         this.title = this._('Region Management');
-        this.titleTag =  '0' + ' ' + this._('Regions')
+        this.refresh();
     }
 
-    onSelect(item: Region): void {
-        this.selectedItem = item;
-        this.router.navigate([item.id])
+    refresh() {
+        this.loadRegions(this._('Regions loaded'));
     }
 
-    private load() {
-
-        // const {search, sort = sortFields} = this.route.queryParams;
-
-        // return this.regionService.findAll(Projection.full, Pageable.build().withSort(sort))
-        //     .pipe(map(regions => this.searchService.search(search, searchFields, regions)))
-        //     .subscribe((data: Region[]) => {
-        //         this.data = data;
-        //     })
-        //     ;
-
+    edit(region: Region) {
+        this.router.navigate(['/regions', region.id]);
     }
 
+    delete(region: Region) {
+        if (window.confirm(this._('Are you sure you want to delete this region?'))) {
+            this.regionService.delete(region).subscribe((any) => {
+                this.refresh()
+            });
+        }
+    }
+
+    /**
+     * Load the clusters data.
+     */
+    private loadRegions(successMessage?: string) {
+        this.regionService.getAll().subscribe((data: Region[]) => {
+            this.data = data;
+            this.titleTag =  data.length + ' ' + this._('Regions')
+        });
+    }
 }

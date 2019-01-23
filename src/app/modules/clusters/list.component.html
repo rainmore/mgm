@@ -12,17 +12,40 @@
                         </li>
                         <li>
                             <a class="nav-item"
-                               (click)="refreshRegions()">{{ _('Refresh') }}</a>
+                               (click)="refresh()">{{ _('Refresh') }}</a>
                         </li>
                     </ul>
                 </div>
             </header>
         </article>
         <article class="card">
-            <p>
-
-                clusters will be here
-            </p>
+            <section class="panel-content col-xs">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Name') }}</th>
+                            <th>{{ _('Region') }}</th>
+                            <th>{{ _('Created Date') }}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td><a (click)="edit(item)">{{ item.name }}</a></td>
+                            <td>{{ item.region }}</td>
+                            <td>{{ item.createdAt | date: 'medium' }}</td>
+                            <td class="actions">
+                                <a (click)="deleteCluster(item)" class="inversed small">
+                                    {{ _('delete') }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!data.length">
+                            <td colspan="4" class="italic text-center"><span>{{ _('No results') }}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </article>
     </section>
 </section>

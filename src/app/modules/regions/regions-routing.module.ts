@@ -6,29 +6,10 @@ import { BaseModule, PageNotFoundComponent } from "../base";
 import { RegionsService }                    from "../../services/regions";
 
 const routes: Routes = [
-    {
-        path: '',
-        component: ListComponent,
-        // resolve: {
-        //     regions: RegionsResolver
-        // },
-        // runGuardsAndResolvers: 'paramsOrQueryParamsChange'
-    },
-    {
-        path: 'add',
-        component: FormComponent,
-        // resolve: {
-        //     regions: RegionResolver
-        // }
-    },
-    {
-        path: ':id',
-        component: FormComponent,
-        // resolve: {
-        //     regions: RegionResolver
-        // }
-    },
-    {path: '**', component: PageNotFoundComponent}
+    { path: '', component: ListComponent },
+    { path: 'add', component: FormComponent },
+    { path: ':id', component: FormComponent },
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -36,12 +17,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         BaseModule
     ],
-    exports: [RouterModule],
-    providers: [
-        // RegionsService
-        // RegionsResolver,
-        // RegionResolver
-    ]
+    exports: [RouterModule]
 })
 export class RegionsRoutingModule {
 }

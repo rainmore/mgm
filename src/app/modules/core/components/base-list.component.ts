@@ -2,7 +2,7 @@ import { EventEmitter, Output } from '@angular/core';
 import { Resource }             from 'angular4-hal';
 import { BaseComponent }        from './base.component';
 import { LanguageService }      from '../../../services/i18n';
-import { Page }                 from '../../../services/rest.service';
+import { Page }                 from "../../../services/common";
 
 export abstract class BaseListComponent<Entity extends Resource> extends BaseComponent {
 

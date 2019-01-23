@@ -6,6 +6,7 @@ import { ClustersRoutingModule } from "./clusters-routing.module";
 import { FormComponent }         from "./form.component";
 import { ListComponent }         from "./list.component";
 import { BaseModule }            from "../base";
+import { ClustersService }       from "../../services/clusters";
 
 @NgModule({
     imports: [
@@ -20,7 +21,7 @@ import { BaseModule }            from "../base";
     ],
     exports: [RouterModule],
     providers: [
-        // RegionsService
+        ClustersService
     ]
 })
 export class ClustersModule {
