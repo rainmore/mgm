@@ -7,7 +7,7 @@
                     <ul>
                         <li>
                             <a class="nav-item"
-                               routerLink="/regions"
+                               (click)="goBack()"
                                routerLinkActive="disabled">{{_('Region Information')}}</a>
                         </li>
                     </ul>
@@ -47,9 +47,9 @@
                             </ul>
                         </div>
 
-                        <div class="form-group" *ngIf="region.id">
+                        <div class="form-group" *ngIf="entity.id">
                             <label>{{ _('Created Date') }}</label>
-                            <span>{{ region.createdAt | date: 'medium' }}</span>
+                            <span>{{ entity.createdAt | date: 'medium' }}</span>
                         </div>
                     </section>
                 </fieldset>

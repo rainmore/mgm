@@ -1,5 +1,4 @@
-import { Component, OnInit }                               from '@angular/core';
-import { Location }                                        from '@angular/common';
+import { Component, Input, OnInit }                        from '@angular/core';
 import { BaseFormComponent }                               from "../base";
 import { LanguageService }                                 from "../../services/i18n";
 import { Region }                                          from "../../domains";
@@ -10,55 +9,53 @@ import { RegionsService }                                  from "../../services/
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Region> implements OnInit {
 
-    form: FormGroup;
-    region: Region = new Region();
-    id: string;
-
-    loading = false;
-    submitted = false;
-    returnUrl: string;
-    formTitle: string;
+    @Input() entity: Region = new Region();
 
     constructor(
-                languageService:  LanguageService,
         private regionService:    RegionsService,
         private formBuilder:      FormBuilder,
-        private route:            ActivatedRoute,
-        private router:           Router
+        languageService:  LanguageService,
+        activatedRoute:   ActivatedRoute,
+        router:           Router,
     ) {
-        super(languageService);
+        super(languageService, activatedRoute, router);
+        this.initForm(this.entity);
+    }
 
+    protected getBaseUri(): string {
+        return '/regions';
+    }
+
+    protected getEntity(): Region {
+        return this.entity;
+    }
+
+    ngOnInit() {
+        this.title = this._('Regions Management');
+        this.titleTag = null;
 
         this.formTitle = this.getId()
             ? this._('Edit Region')
             : this._('Add Region');
-    }
-
-    ngOnInit() {
-        this.title = this._('Region Management');
-        this.titleTag = null;
 
         this.load();
-        this.initForm(this.region);
-
     }
 
     save() {
         this.loading = true;
         if (this.form.valid) {
-            console.log('asdfasdf');
             const id = this.getId();
-            this.region = {...this.region, ...this.form.value};
+            this.entity = {...this.entity, ...this.form.value};
 
-            if (this.region.id) {
-                this.regionService.update(this.region).subscribe((region: Region) => {
+            if (this.entity.id) {
+                this.regionService.update(this.entity).subscribe((region: Region) => {
                     this.loading = false;
                 });
             }
             else {
-                this.regionService.create(this.region).subscribe((region: Region) => {
+                this.regionService.create(this.entity).subscribe((region: Region) => {
                     this.loading = false;
-                    this.router.navigate(['/regions', region.id])
+                    this.redirect([this.getBaseUri(), region.id]);
                 });
             }
         }
@@ -67,43 +64,32 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
         }
     }
 
-    private getId() {
-        return this.route.snapshot.paramMap.get('id');
-    }
-
-    private load(): void {
+    protected load(): void {
         this.id = this.getId();
         if (this.id) {
             this.regionService.findOne(this.id).subscribe( (region: Region) => {
-                this.region = region;
-                this.initForm(this.region);
+                this.entity = region;
+                this.initForm(this.entity);
             });
         }
         else {
-            this.region = new Region();
-            this.initForm(this.region);
+            this.entity = new Region();
+            this.initForm(this.entity);
         }
     }
 
-    private initForm(region: Region): void {
+    protected initForm(entity: Region): void {
         this.form = new FormGroup({
-            'name': new FormControl(region.name, [
+            'name': new FormControl(entity.name, [
                 Validators.required,
                 Validators.maxLength(100)
             ]),
-            'displayName': new FormControl(region.displayName, [
+            'displayName': new FormControl(entity.displayName, [
                 Validators.required,
                 Validators.maxLength(100)
             ])
         });
     }
 
-    protected getEntity(): Region {
-        return new Region();
-    }
-
-    goBack(): void {
-        this.router.navigate(['/regions']);
-    }
 
 }

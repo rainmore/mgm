@@ -6,31 +6,41 @@ import { LanguageService }                                 from "../../services/
 import { FlashService }                                    from "../../services/flash";
 import { ErrorMessageBuilder }                             from "../core/forms";
 import { TenantsService }                                  from "../../services/tenants";
-import { BaseComponent }                                   from "../base";
+import { BaseFormComponent }                               from "../base";
 
 @Component({templateUrl: 'form.component.html'})
-export class FormComponent extends BaseComponent implements OnInit {
+export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
 
     @Input() tenant: Tenant = new Tenant();
     @Input() clusters: Cluster[] = [];
     @Input() rolloutGroups: RolloutGroup[] = [];
     @Input() rtos: Rto[] = [];
 
-    formTitle: String;
-
-    form: FormGroup;
-    submitted = false;
-
-    constructor(languageService:             LanguageService,
+    constructor(
                 private formBuilder:         FormBuilder,
-                private router:              Router,
-                private route:               ActivatedRoute,
                 private errorBuilder:        ErrorMessageBuilder,
                 private tenantsService:      TenantsService,
-                private flashService:        FlashService) {
-        super(languageService);
+                private flashService:        FlashService,
+                    languageService: LanguageService,
+                    activatedRoute:   ActivatedRoute,
+                    router:           Router) {
+    super(languageService, activatedRoute, router);
 
-        this.title = this._('Tenant Management');
+    }
+
+    protected getBaseUri(): string {
+        return '/tenants';
+    }
+
+    protected getEntity(): Tenant {
+        return undefined;
+    }
+
+    protected load(): void {
+    }
+
+    ngOnInit() {
+        this.title = this._('Tenants Management');
 
         this.formTitle = this.getId()
             ? this._('Edit Tenant')
@@ -38,7 +48,11 @@ export class FormComponent extends BaseComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    // convenience getter for easy access to form fields
+    get formControl() { return this.form.controls; }
+
+    protected initForm(entity: Tenant): void {
+
         this.form = new FormGroup({
             'cluster': new FormControl(this.tenant.cluster, [
                 Validators.required
@@ -58,10 +72,10 @@ export class FormComponent extends BaseComponent implements OnInit {
             'contentPath': new FormControl(this.tenant.tag, [
                 Validators.maxLength(100)
             ]),
-           'tag': new FormControl(this.tenant.tag, [
-               Validators.required,
-               Validators.maxLength(100)
-           ]),
+            'tag': new FormControl(this.tenant.tag, [
+                Validators.required,
+                Validators.maxLength(100)
+            ]),
             'rolloutGroup': new FormControl(this.tenant.rolloutGroup, [
                 Validators.required
             ]),
@@ -89,14 +103,11 @@ export class FormComponent extends BaseComponent implements OnInit {
         });
     }
 
-    // convenience getter for easy access to form fields
-    get formControl() { return this.form.controls; }
-
     goToListPage() {
         this.router.navigate(['/tenants']);
     }
 
-    save() {
+    save(): void {
         this.submitted = true;
         if (this.form.valid) {
             const id = this.getId();
@@ -117,14 +128,5 @@ export class FormComponent extends BaseComponent implements OnInit {
             // this.submitted = false;
         }
     }
-
-    getId() {
-        return this.route.snapshot.paramMap.get('id');
-    }
-
-    protected getEntity(): Tenant {
-        return new Tenant();
-    }
-
 
 }

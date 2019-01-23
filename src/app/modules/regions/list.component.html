@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let region of data">
-                        <td><a (click)="edit(region)">{{ region }}</a></td>
+                        <td><a (click)="edit(region)">{{ region.getName() }}</a></td>
                         <td>{{ region.createdAt | date: 'medium' }}</td>
                         <td class="actions">
                             <a (click)="delete(region)" class="inversed small">

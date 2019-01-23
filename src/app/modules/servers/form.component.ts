@@ -1,25 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { first }             from 'rxjs/operators';
-import { BaseFormComponent } from "../base";
-import { Server }            from "../../domains";
-import { LanguageService }   from "../../services/i18n";
+import { Component, OnInit }      from '@angular/core';
+import { first }                  from 'rxjs/operators';
+import { BaseFormComponent }      from "../base";
+import { Cluster, Server }        from "../../domains";
+import { LanguageService }        from "../../services/i18n";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Server> implements OnInit {
 
-    constructor(languageService: LanguageService) {
-        super(languageService);
+    private entity: Server = new Server();
 
-        this.title = this._('Server Management');
+    constructor(languageService: LanguageService,
+                activatedRoute:   ActivatedRoute,
+                router:           Router) {
+        super(languageService, activatedRoute, router);
+
     }
 
-    ngOnInit() {
 
+    protected getBaseUri(): string {
+        return '/servers';
     }
 
     protected getEntity(): Server {
-        return new Server();
+        return this.entity;
     }
 
+    ngOnInit() {
+        this.title = this._('Servers Management');
+        this.titleTag = null;
+
+        this.formTitle = this.getId()
+            ? this._('Edit Server')
+            : this._('Add Server');
+
+        this.load();
+    }
+
+    protected initForm(entity: Server): void {
+    }
+
+    protected load(): void {
+    }
+
+    save(): void {
+    }
 
 }

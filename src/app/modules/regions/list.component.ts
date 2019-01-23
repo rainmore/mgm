@@ -1,12 +1,12 @@
-import { Component, Input, OnInit }       from '@angular/core';
-import { first, map }                     from 'rxjs/operators';
-import { BasePageComponent }              from "../core/components";
-import { LanguageService }                from "../../services/i18n";
-import { RegionsService }                 from "../../services/regions";
-import { BaseGridsComponent }             from "../base";
-import { Cluster, Region }                from "../../domains";
-import { ActivatedRouteSnapshot, Router } from "@angular/router";
-import { SearchService }                  from "../core/data";
+import { Component, Input, OnInit }                       from '@angular/core';
+import { first, map }                                     from 'rxjs/operators';
+import { BasePageComponent }                              from "../core/components";
+import { LanguageService }                                from "../../services/i18n";
+import { RegionsService }                                 from "../../services/regions";
+import { BaseGridsComponent }                             from "../base";
+import { Cluster, Region }                                from "../../domains";
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
+import { SearchService }                                  from "../core/data";
 
 const searchFields: Array<string> = [ 'name', 'displayName' ];
 const sortFields: Array<string> = [ 'displayName' ];
@@ -18,21 +18,21 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
     @Input() data: Region[] = [];
 
     constructor(
-        languageService: LanguageService,
         private regionService: RegionsService,
-        // private searchService: SearchService,
-        private router: Router
+                languageService: LanguageService,
+                activatedRoute:   ActivatedRoute,
+                router:           Router
         ) {
-        super(languageService);
+        super(languageService, activatedRoute, router);
     }
 
     ngOnInit() {
-        this.title = this._('Region Management');
+        this.title = this._('Regions Management');
         this.refresh();
     }
 
     refresh() {
-        this.loadRegions(this._('Regions loaded'));
+        this.load();
     }
 
     edit(region: Region) {
@@ -40,7 +40,7 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
     }
 
     delete(region: Region) {
-        if (window.confirm(this._('Are you sure you want to delete this region?'))) {
+        if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.regionService.delete(region).subscribe((any) => {
                 this.refresh()
             });
@@ -50,7 +50,7 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
     /**
      * Load the clusters data.
      */
-    private loadRegions(successMessage?: string) {
+    private load(): void {
         this.regionService.getAll().subscribe((data: Region[]) => {
             this.data = data;
             this.titleTag =  data.length + ' ' + this._('Regions')

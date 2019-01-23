@@ -6,6 +6,6 @@ export class RegionBuilder implements SubTypeBuilder {
     subtypes: Map<string, any> = new Map<string, any>();
 
     constructor() {
-        this.subtypes.set('region', Region);
+        this.subtypes.set('entity', Region);
     }
 }

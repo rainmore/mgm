@@ -16,7 +16,7 @@ export class Cluster extends Resource {
         region: 'region'
     };
 
-    region: Region;
+    region: Region = new Region();
     id: string;
     name: string;
     createdAt: Date;

@@ -1,6 +1,8 @@
-import { LanguageService } from "../../services/i18n";
-import { AbstractControl } from "@angular/forms";
-import { ErrorMessage }    from "../../domains";
+import { LanguageService }        from "../../services/i18n";
+import { AbstractControl }        from "@angular/forms";
+import { ErrorMessage }           from "../../domains";
+import { ActivatedRoute, Router } from "@angular/router";
+import URI = uri.URI;
 
 /**
  * Base component with generic functionality.
@@ -18,7 +20,7 @@ export abstract class BaseComponent {
      */
     errors: Error[] = [];
 
-    constructor(public languageService: LanguageService) {
+    constructor(protected languageService: LanguageService, protected activatedRoute: ActivatedRoute, protected router: Router) {
 
     }
 
@@ -74,5 +76,13 @@ export abstract class BaseComponent {
      */
     scrollToTop() {
         window.scrollTo(0, 0);
+    }
+
+    protected getRequestParam(param: string) {
+        return this.activatedRoute.snapshot.paramMap.get(param);
+    }
+
+    protected redirect(commands: any[]) {
+        this.router.navigate(commands);
     }
 }

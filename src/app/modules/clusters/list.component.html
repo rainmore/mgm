@@ -32,10 +32,10 @@
                     <tbody>
                         <tr *ngFor="let item of data">
                             <td><a (click)="edit(item)">{{ item.name }}</a></td>
-                            <td>{{ item.region }}</td>
+                            <td>{{ item.region.getName() }}</td>
                             <td>{{ item.createdAt | date: 'medium' }}</td>
                             <td class="actions">
-                                <a (click)="deleteCluster(item)" class="inversed small">
+                                <a (click)="delete(item)" class="inversed small">
                                     {{ _('delete') }}
                                 </a>
                             </td>

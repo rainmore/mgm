@@ -3,7 +3,6 @@ import { NgModule }                          from '@angular/core';
 import { ListComponent }                     from "./list.component";
 import { FormComponent }                     from "./form.component";
 import { BaseModule, PageNotFoundComponent } from "../base";
-import { RegionsService }                    from "../../services/regions";
 
 const routes: Routes = [
     { path: '', component: ListComponent },
