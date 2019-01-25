@@ -54,10 +54,6 @@
                             <input type="text" id="name" name="name" class="form-control" required
                                    formControlName="name" />
 
-                            <errors [formGroup]="form" [controlName]="'name'" [messages]="{
-                                required: _('Name is required')
-                            }"></errors>
-
                             <ul *ngIf="submitted && formControl.name.errors" class="bg-error">
                                 <li *ngIf="formControl.name.errors.required">{{ _('Name is required') }}</li>
                                 <li *ngIf="formControl.name.errors.maxLength">{{ _('Max length is 100') }}</li>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { first }                                          from 'rxjs/operators';
 import { BaseGridsComponent }                             from "../base/grids/base-grids.component";
-import { Region, Server, Tenant }                         from "../../domains";
+import { Cluster, Region, Server, Tenant }                from "../../domains";
 import { LanguageService }                                from "../../services/i18n";
 import { TenantsService }                                 from "../../services/tenants";
 import { ActivatedRoute, Router }                         from "@angular/router";
@@ -9,12 +9,12 @@ import { ActivatedRoute, Router }                         from "@angular/router"
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit {
 
-    @Input() tenants: Tenant[] = [];
+    @Input() data: Tenant[] = [];
 
     @Output() onSynchronize  = new EventEmitter<Tenant>();
 
     constructor(
-        private tenants1Service: TenantsService,
+        private tenantsService: TenantsService,
     languageService: LanguageService,
     activatedRoute:   ActivatedRoute,
     router:           Router) {
@@ -37,15 +37,24 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
 
     delete(tenant: Tenant) {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
-            this.tenants1Service.delete(tenant).subscribe((any) => {
-                this.refresh()
+            this.tenantsService.delete(tenant).subscribe((any) => {
+                this.refresh();
             });
         }
     }
 
+    toggleActive(tenant: Tenant) {
+        const active = tenant.active;
+        tenant.active = !active;
+
+        this.tenantsService.update(tenant).subscribe((updatedTenant: Tenant) => {
+            tenant = updatedTenant;
+        });
+    }
+
     private load(): void {
-        this.tenants1Service.getAll().subscribe(tenants => {
-            this.tenants = tenants
+        this.tenantsService.getAll().subscribe((data: Tenant[]) => {
+            this.data = data;
         });
     }
 }

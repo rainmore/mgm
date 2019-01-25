@@ -6,6 +6,7 @@ import { FormComponent }        from "./form.component";
 import { ListComponent }        from "./list.component";
 import { ServersRoutingModule } from "./servers-routing.module";
 import { BaseModule }           from "../base";
+import { ServersService }       from "../../services/servers";
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { BaseModule }           from "../base";
     exports: [RouterModule],
     providers: [
         // RegionsService
+        ServersService
     ]
 })
 export class ServersModule {

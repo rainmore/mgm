@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { first }                    from 'rxjs/operators';
-import { BaseGridsComponent }       from "../base/grids/base-grids.component";
-import { Cluster, Region, Server }  from "../../domains";
-import { LanguageService }          from "../../services/i18n";
-import { ActivatedRoute, Router }   from "@angular/router";
-import { ServersService }           from "../../services/servers";
+import { Component, Input, OnInit }        from '@angular/core';
+import { first }                           from 'rxjs/operators';
+import { BaseGridsComponent }              from "../base/grids/base-grids.component";
+import { Cluster, Region, Server, Tenant } from "../../domains";
+import { LanguageService }                 from "../../services/i18n";
+import { ActivatedRoute, Router }          from "@angular/router";
+import { ServersService }                  from "../../services/servers";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Server> implements OnInit {
@@ -35,9 +35,18 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
     delete(server: Server) {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.serversService.delete(server).subscribe((any) => {
-                this.refresh()
+                this.refresh();
             });
         }
+    }
+
+    toggleActive(server: Server) {
+        const active = server.active;
+        server.active = !active;
+
+        this.serversService.update(server).subscribe((updatedServer: Server) => {
+            server = updatedServer;
+        });
     }
 
     /**
@@ -46,6 +55,14 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
     private load(): void {
         this.serversService.getAll().subscribe((data: Server[]) => {
             this.data = data;
+            this.data.forEach(item => {
+                item.getRegion().subscribe((region: Region) => {
+                    item.region = region;
+                });
+                item.getCluster().subscribe((cluster: Cluster) => {
+                    item.cluster = cluster;
+                });
+            });
         });
     }
 }

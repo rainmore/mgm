@@ -1,4 +1,8 @@
-import { Resource } from 'angular4-hal';
+import { Resource }        from 'angular4-hal';
+import { Observable }      from "rxjs";
+import { Cluster, Region } from "..";
+import { RegionBuilder }   from "../regions/region-builder";
+import { ClusterBuilder }  from "../clusters/cluster-builder";
 
 /**
  * Model that represents a server.
@@ -24,6 +28,15 @@ export class Server extends Resource {
     type: string;
     zone: string;
     createdAt: Date;
+
+    getCluster(): Observable<Cluster> {
+        return this.getRelation(Cluster, Server.links.cluster, new ClusterBuilder());
+    }
+
+    getRegion(): Observable<Region> {
+        return this.getRelation(Region, Server.links.region, new RegionBuilder());
+    }
+
 
     isChancellor(): boolean {
         return this.role && this.role === RoleType[ RoleType.chancellor ];
