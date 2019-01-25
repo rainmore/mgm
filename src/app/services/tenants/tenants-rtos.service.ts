@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseRestService }      from '../base-rest-service';
-import { Rto }                  from '../../domains';
+import { Rto }                  from "../../domains/tenants/rto";
 
 @Injectable()
 export class TenantsRtosService extends BaseRestService<Rto> {

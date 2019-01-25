@@ -1,4 +1,3 @@
-import { HttpClient }           from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable }           from 'rxjs';
 import * as URI                 from 'urijs';
@@ -11,22 +10,26 @@ export const Uri = {
 };
 
 @Injectable()
-export class TenantsService
-    extends BaseRestService<Tenant> {
+export class TenantsService extends BaseRestService<Tenant> {
 
-    constructor(
-        injector: Injector,
-        private httpClient: HttpClient
-    ) {
+    constructor(injector: Injector) {
         super(Tenant, Tenant.collection, injector);
     }
+
+    // constructor(
+    //     injector: Injector,
+    //     private httpClient: HttpClient
+    // ) {
+    //     super(Tenant, Tenant.collection, injector);
+    // }
 
     /**
      * @returns {Observable<*>}
      */
     synchronizeAll(): Observable<any> {
         const uri = URI(projectConfiguration.apiUrl).segment(Tenant.collection).segment(Uri.synchronize);
-        return this.httpClient.post(uri.toString(), null);
+        return null;
+        // return this.httpClient.post(uri.toString(), null);
     }
 
     /**
@@ -34,7 +37,8 @@ export class TenantsService
      */
     synchronizeTenant(tenant: Tenant): Observable<any> {
         const uri = URI(projectConfiguration.apiUrl).segment(Tenant.collection).segment(tenant.id).segment(Uri.synchronize);
-        return this.httpClient.post(uri.toString(), null);
+        return null;
+        // return this.httpClient.post(uri.toString(), null);
     }
 
     /**

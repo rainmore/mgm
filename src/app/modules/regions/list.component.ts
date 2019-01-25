@@ -1,12 +1,10 @@
-import { Component, Input, OnInit }                       from '@angular/core';
-import { first, map }                                     from 'rxjs/operators';
-import { BasePageComponent }                              from "../core/components";
-import { LanguageService }                                from "../../services/i18n";
-import { RegionsService }                                 from "../../services/regions";
-import { BaseGridsComponent }                             from "../base";
-import { Cluster, Region }                                from "../../domains";
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
-import { SearchService }                                  from "../core/data";
+import { Component, Input, OnInit } from '@angular/core';
+import { LanguageService }          from "../../services/i18n";
+import { RegionsService }           from "../../services/regions";
+import { BaseGridsComponent }       from "../base";
+import { Region }                   from "../../domains";
+import { ActivatedRoute, Router }   from "@angular/router";
+import { sprintf }                  from "sprintf-js";
 
 const searchFields: Array<string> = [ 'name', 'displayName' ];
 const sortFields: Array<string> = [ 'displayName' ];
@@ -52,8 +50,8 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
      */
     private load(): void {
         this.regionService.getAll().subscribe((data: Region[]) => {
+            this.titleTag = sprintf('%s %s', this.regionService.totalElement(), this._('Regions'));
             this.data = data;
-            this.titleTag =  data.length + ' ' + this._('Regions')
         });
     }
 }

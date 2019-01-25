@@ -3,6 +3,7 @@ import { Observable }      from "rxjs";
 import { Cluster, Region } from "..";
 import { RegionBuilder }   from "../regions/region-builder";
 import { ClusterBuilder }  from "../clusters/cluster-builder";
+import { RoleType }        from "./role-type";
 
 /**
  * Model that represents a server.
@@ -51,24 +52,7 @@ export class Server extends Resource {
     }
 }
 
-/**
- * Model that represents the possible roles a server can have.
- */
-export class Role extends Resource {
-    static collection: string = 'roles';
 
-    content: string = null;
-}
 
-export enum RoleType {
-    chancellor, database
-}
 
-/**
- * Model that represents the possible zones a server can reside in.
- */
-export class Zone extends Resource {
-    static collection: string = 'zones';
 
-    content: string = null;
-}

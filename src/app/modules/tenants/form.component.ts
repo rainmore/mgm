@@ -1,12 +1,14 @@
 import { Component, Input, OnInit }                        from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router }                          from "@angular/router";
-import { Cluster, RolloutGroup, Rto, Tenant }              from "../../domains";
-import { LanguageService }                                 from "../../services/i18n";
-import { FlashService }                                    from "../../services/flash";
-import { ErrorMessageBuilder }                             from "../core/forms";
-import { TenantsService }                                  from "../../services/tenants";
-import { BaseFormComponent }                               from "../base";
+import { FormBuilder, FormControl, FormGroup, Validators }          from '@angular/forms';
+import { ActivatedRoute, Router }                                          from "@angular/router";
+import { Cluster, Tenant }                                                 from "../../domains";
+import { LanguageService }                                                 from "../../services/i18n";
+import { FlashService }                                                    from "../../services/flash";
+import { ErrorMessageBuilder }                                             from "../core/forms";
+import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from "../../services/tenants";
+import { BaseFormComponent }                                               from "../base";
+import { RolloutGroup }                                                    from "../../domains/tenants/rollout-group";
+import { Rto }                                                             from "../../domains/tenants/rto";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
@@ -17,10 +19,12 @@ export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
     @Input() rtos: Rto[] = [];
 
     constructor(
-                private formBuilder:         FormBuilder,
-                private errorBuilder:        ErrorMessageBuilder,
-                private tenantsService:      TenantsService,
-                private flashService:        FlashService,
+                private formBuilder:          FormBuilder,
+                private errorBuilder:         ErrorMessageBuilder,
+                private tenantsService:       TenantsService,
+                private rolloutGroupsService: TenantsRolloutGroupsService,
+                private rtoService:           TenantsRtosService,
+                private flashService:         FlashService,
                     languageService: LanguageService,
                     activatedRoute:   ActivatedRoute,
                     router:           Router) {

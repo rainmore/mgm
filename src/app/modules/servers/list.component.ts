@@ -5,6 +5,7 @@ import { Cluster, Region, Server, Tenant } from "../../domains";
 import { LanguageService }                 from "../../services/i18n";
 import { ActivatedRoute, Router }          from "@angular/router";
 import { ServersService }                  from "../../services/servers";
+import { sprintf }                         from "sprintf-js";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Server> implements OnInit {
@@ -54,6 +55,7 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
      */
     private load(): void {
         this.serversService.getAll().subscribe((data: Server[]) => {
+            this.titleTag = sprintf('%s %s', this.serversService.totalElement(), this._('Clusters'));
             this.data = data;
             this.data.forEach(item => {
                 item.getRegion().subscribe((region: Region) => {

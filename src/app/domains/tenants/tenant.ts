@@ -1,16 +1,15 @@
-import { Resource }     from 'angular4-hal';
-import { Identifiable } from '../identifiable';
-
-export class Database {
-    user: string;
-    pass: string;
-    name: string;
-}
+import { Resource }       from 'angular4-hal';
+import { Identifiable }   from '../identifiable';
+import { Observable }     from "rxjs";
+import { Cluster }        from "..";
+import { ClusterBuilder } from "../clusters/cluster-builder";
+import { T2Settings }     from "./t2-settings";
+import { Database }       from "./database";
 
 /**
  * Model that represents the a tenant (client platform).
  */
-export class Tenant extends Resource implements Identifiable<string> {
+export class Tenant extends Resource {
     static collection: string = 'tenants';
 
     /**
@@ -21,7 +20,7 @@ export class Tenant extends Resource implements Identifiable<string> {
     };
 
     id: string;
-    cluster: any;
+    cluster: Cluster;
     systemId: number;
     tenantId: string;
     name: string;
@@ -43,27 +42,12 @@ export class Tenant extends Resource implements Identifiable<string> {
         // @todo add proper mapping of object types using json-object-mapper (see https://github.com/masvis/angular4-hal/issues/19)
         return new Date(this.syncedAt).getTime() >= new Date(this.updatedAt).getTime();
     }
+
+    getCluster(): Observable<Cluster> {
+        return this.getRelation(Cluster, Tenant.links.cluster, new ClusterBuilder());
+    }
 }
 
-export class T2Settings {
-    active: boolean;
-    rto: string;
-}
 
-/**
- * Model that represents the possible rollout groups a tenant can belong to.
- */
-export class RolloutGroup extends Resource {
-    static collection: string = 'rolloutGroups';
 
-    content: string;
-}
 
-/**
- * Model that represents an RTO.
- */
-export class Rto extends Resource {
-    static collection: string = 'rtoes';
-
-    content: string;
-}

@@ -25,16 +25,6 @@
                     <section class="card-content card-padded col-xs col-xs-12">
 
                         <div class="form-group required">
-                            <label for="cluster">{{ _('Cluster') }}</label>
-
-                            <select id="cluster" name="cluster" class="form-control" required
-                                    formControlName="cluster">
-                                <option value="">&mdash; {{ _('Select a Cluster') }} &mdash;</option>
-                                <option *ngFor="let cluster of clusters" [value]="cluster" ]>{{ cluster.name }}</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group required">
                             <label for="systemId">{{ _('System ID') }}</label>
 
                             <input type="text" id="systemId" name="systemId" class="form-control" required numerical
@@ -91,67 +81,11 @@
                             <span>{{ tenant.createdAt | date: 'medium' }}</span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="rolloutGroup">{{ _('Rollout Group') }}</label>
-                            <select id="rolloutGroup" name="rolloutGroup" class="form-control" required
-                                    formControlName="rolloutGroup">
-                                <option value="">&mdash; {{ _('Select a Rollout Group') }} &mdash;</option>
-                                <option *ngFor="let rolloutGroup of rolloutGroups" [value]="rolloutGroups" ]>{{ rolloutGroup.content }}</option>
-                            </select>
-                        </div>
 
                     </section>
 
                 </fieldset>
 
-                <fieldset class="card">
-                    <header class="card-header">
-                        <div class="title-bar">
-                            <h3 class="title">{{ _('Database Information') }}</h3>
-                        </div>
-                    </header>
-                    <section class="card-content card-padded actions" [formGroup]="form.get('database')">
-                        <div class="form-group">
-                            <label for="database-name">{{ _('Name') }}</label>
-                            <input type="text" id="database-name" name="database-name" class="form-control" required
-                                   formControlName="name" />
-                        </div>
-                        <div class="form-group">
-                            <label for="database-user">{{ _('Username') }}</label>
-                            <input type="text" id="database-user" name="database-user" class="form-control" required
-                                   formControlName="user" />
-                        </div>
-                        <div class="form-group">
-                            <label for="database-password">{{ _('Password') }}</label>
-                            <input type="text" id="database-password" name="database-password" class="form-control" required
-                                   formControlName="pass" />
-                        </div>
-                    </section>
-                </fieldset>
-
-                <fieldset class="card">
-                    <header class="card-header">
-                        <div class="title-bar">
-                            <h3 class="title">{{ _('T2 Settings') }}</h3>
-                        </div>
-                    </header>
-                    <section class="card-content card-padded actions" [formGroup]="form.get('t2Settings')">
-                        <div class="form-group">
-                            <label for="t2Settings-active">{{ _('T2 Active') }}</label>
-                            <input type="checkbox" id="t2Settings-active" name="t2Settings-active" class="form-control"
-                                   formControlName="active" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="t2Settings-rto">{{ _('T2 RTO') }}</label>
-                            <select id="t2Settings-rto" name="t2Settings-rto" class="form-control" required
-                                    formControlName="rto">
-                                <option value="">&mdash; {{ _('Select an RTO') }} &mdash;</option>
-                                <option *ngFor="let rto of rtoS" [value]="rto" ]>{{ rto.content }}</option>
-                            </select>
-                        </div>
-                    </section>
-                </fieldset>
 
 
                 <fieldset class="card">

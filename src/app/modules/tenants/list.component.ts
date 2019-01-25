@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { first }                                          from 'rxjs/operators';
-import { BaseGridsComponent }                             from "../base/grids/base-grids.component";
-import { Cluster, Region, Server, Tenant }                from "../../domains";
-import { LanguageService }                                from "../../services/i18n";
-import { TenantsService }                                 from "../../services/tenants";
-import { ActivatedRoute, Router }                         from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output }                  from '@angular/core';
+import { BaseGridsComponent }                                              from "../base/grids/base-grids.component";
+import { Cluster, Tenant }                                                 from "../../domains";
+import { LanguageService }                                                 from "../../services/i18n";
+import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from "../../services/tenants";
+import { ActivatedRoute, Router }                                          from "@angular/router";
+import { sprintf }                                                         from "sprintf-js";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit {
@@ -14,7 +14,9 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
     @Output() onSynchronize  = new EventEmitter<Tenant>();
 
     constructor(
-        private tenantsService: TenantsService,
+        private tenantsService:       TenantsService,
+        private rolloutGroupsService: TenantsRolloutGroupsService,
+        private rtoService:           TenantsRtosService,
     languageService: LanguageService,
     activatedRoute:   ActivatedRoute,
     router:           Router) {
@@ -43,6 +45,10 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
         }
     }
 
+    sync(tenant: Tenant) {
+
+    }
+
     toggleActive(tenant: Tenant) {
         const active = tenant.active;
         tenant.active = !active;
@@ -54,7 +60,13 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
 
     private load(): void {
         this.tenantsService.getAll().subscribe((data: Tenant[]) => {
+            this.titleTag = sprintf('%s %s', this.tenantsService.totalElement(), this._('Tenants'));
             this.data = data;
+            this.data.forEach(item => {
+                item.getCluster().subscribe((cluster: Cluster) => {
+                    item.cluster = cluster;
+                });
+            });
         });
     }
 }

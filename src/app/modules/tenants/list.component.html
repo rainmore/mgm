@@ -25,52 +25,52 @@
                 <thead>
                     <tr>
                         <th>{{ _('System ID') }}</th>
-                        <th>{{ _('Cluster') }}</th>
+                        <!--<th>{{ _('Cluster') }}</th>-->
                         <th>{{ _('Tenant Name') }}</th>
-                        <th>{{ _('Tenant ID') }}</th>
-                        <th>{{ _('Active') }}</th>
-                        <th>{{ _('Rollout Group') }}</th>
-                        <th>{{ _('Tag') }}</th>
+                        <!--<th>{{ _('Tenant ID') }}</th>-->
+                        <!--<th>{{ _('Active') }}</th>-->
+                        <!--<th>{{ _('Rollout Group') }}</th>-->
+                        <!--<th>{{ _('Tag') }}</th>-->
                         <th>{{ _('Created Date') }}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of data" [class.unsynced]="!item.isSynced()">
-                        <td>
-                            <a (click)="edit(item)">{{ item.systemId }}</a>
-                        </td>
-                        <td>{{ item.cluster.name }}</td>
-                        <td>
-                            <a (click)="edit(item)">{{ item.name }}</a>
-                        </td>
-                        <td>
-                            <a (click)="edit(item)">{{ item.tenantId }}</a>
-                        </td>
-                        <td>
-                            <div class="row space-between">
-                                {{ item.active }}
-                                <a class="inversed small" (click)="toggleActive(item)">
-                                    {{ item.active ? _('deactivate') : _('activate') }}
-                                </a>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="labelize labelize-hover rollout {{item.rolloutGroup}}">
-                                {{ item.rolloutGroup ? item.rolloutGroup : _('none') }}
-                            </span>
-                        </td>
-                        <td>{{ item.tag }}</td>
-                        <td>{{ item.createdAt | date: 'medium' }}</td>
-                        <td class="actions">
-                            <a *ngIf="!item.isSynced()" (click)="syncTenant(item)" class="inversed small">
-                                {{ _('synchronize') }}
-                            </a>
-                            <a (click)="delete(item)" class="inversed small">
-                                {{ _('delete') }}
-                            </a>
-                        </td>
-                    </tr>
+                    <!--<tr *ngFor="let item of data" [class.unsynced]="!item.isSynced()">-->
+                        <!--<td>-->
+                            <!--<a (click)="edit(item)">{{ item.systemId }}</a>-->
+                        <!--</td>-->
+                        <!--&lt;!&ndash;<td>{{ item.cluster.name }}</td>&ndash;&gt;-->
+                        <!--<td>-->
+                            <!--<a (click)="edit(item)">{{ item.name }}</a>-->
+                        <!--</td>-->
+                        <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<a (click)="edit(item)">{{ item.tenantId }}</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="row space-between">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{ item.active }}&ndash;&gt;-->
+                                <!--&lt;!&ndash;<a class="inversed small" (click)="toggleActive(item)">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;{{ item.active ? _('deactivate') : _('activate') }}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="labelize labelize-hover rollout {{ item.rolloutGroup }}">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{ item.rolloutGroup ? item.rolloutGroup : _('none') }}&ndash;&gt;-->
+                            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<td>{{ item.tag }}</td>&ndash;&gt;-->
+                        <!--<td>{{ item.createdAt | date: 'medium' }}</td>-->
+                        <!--<td class="actions">-->
+                            <!--<a *ngIf="!item.isSynced()" (click)="sync(item)" class="inversed small">-->
+                                <!--{{ _('synchronize') }}-->
+                            <!--</a>-->
+                            <!--<a (click)="delete(item)" class="inversed small">-->
+                                <!--{{ _('delete') }}-->
+                            <!--</a>-->
+                        <!--</td>-->
+                    <!--</tr>-->
                     <tr *ngIf="!data.length">
                         <td colspan="9" class="italic text-center"><span>{{ _('No results') }}</span></td>
                     </tr>
