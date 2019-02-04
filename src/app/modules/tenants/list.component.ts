@@ -24,20 +24,20 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.title = this._('Tenants Management');
         this.refresh();
     }
 
-    refresh() {
+    refresh(): void {
         this.load();
     }
 
-    edit(tenant: Tenant) {
+    edit(tenant: Tenant): void {
         this.redirect(['/tenants', tenant.id]);
     }
 
-    delete(tenant: Tenant) {
+    delete(tenant: Tenant): void {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.tenantsService.delete(tenant).subscribe((any) => {
                 this.refresh();
@@ -45,11 +45,15 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
         }
     }
 
-    sync(tenant: Tenant) {
+    sync(tenant: Tenant): void {
 
     }
 
-    toggleActive(tenant: Tenant) {
+    getClusterName(tenant: Tenant): string {
+        return tenant.cluster ? tenant.cluster.name : null;
+    }
+
+    toggleActive(tenant: Tenant): void {
         const active = tenant.active;
         tenant.active = !active;
 

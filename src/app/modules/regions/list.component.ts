@@ -24,20 +24,20 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
         super(languageService, activatedRoute, router);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.title = this._('Regions Management');
         this.refresh();
     }
 
-    refresh() {
+    refresh(): void {
         this.load();
     }
 
-    edit(region: Region) {
+    edit(region: Region): void {
         this.router.navigate(['/regions', region.id]);
     }
 
-    delete(region: Region) {
+    delete(region: Region): void {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.regionService.delete(region).subscribe((any) => {
                 this.refresh()

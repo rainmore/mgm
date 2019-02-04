@@ -24,7 +24,8 @@
                     <thead>
                         <tr>
                             <th>{{ _('Name') }}</th>
-                            <th>{{ _('Cluster/Region') }}</th>
+                            <th>{{ _('Cluster') }}</th>
+                            <th>{{ _('Region') }}</th>
                             <th>{{ _('Active') }}</th>
                             <th>{{ _('Role') }}</th>
                             <th>{{ _('Host') }}</th>
@@ -35,22 +36,23 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of data">
-                            <td><a (click)="edit(item)">{{ item.name }}</a></td>
-                            <td>{{ item.isChancellor() ? item.region.name : item.cluster.name }}</td>
+                            <td><a (click)="edit(item)">{{ getName(item) }}</a></td>
+                            <td>{{ getClusterName(item) }}</td>
+                            <td>{{ getRegionName(item) }}</td>
                             <td>
                                 <div class="row space-between">
                                     {{ item.active }}
-                                    <a class="inversed small"
-                                       (click)="toggleActive(item)">
-                                        {{ item.active ? _('deactivate') : _('activate') }}
-                                    </a>
                                 </div>
                             </td>
                             <td><span class="labelize labelize-hover role {{ item.role }}">{{ item.role }}</span></td>
                             <td><span class="italic">{{ item.host }}</span></td>
-                            <td><span>{{ item.zone ? item.zone : _('N/A') }}</span></td>
+                            <td><span>{{ item.zone ? item.zone : '' }}</span></td>
                             <td>{{ item.createdAt | date: 'medium' }}</td>
                             <td class="actions">
+                                <a class="inversed small"
+                                   (click)="toggleActive(item)">
+                                    {{ item.active ? _('deactivate') : _('activate') }}
+                                </a>
                                 <a (click)="delete(item)" class="inversed small">
                                     {{ _('delete') }}
                                 </a>

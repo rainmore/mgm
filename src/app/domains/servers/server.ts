@@ -38,7 +38,6 @@ export class Server extends Resource {
         return this.getRelation(Region, Server.links.region, new RegionBuilder());
     }
 
-
     isChancellor(): boolean {
         return this.role && this.role === RoleType[ RoleType.chancellor ];
     }

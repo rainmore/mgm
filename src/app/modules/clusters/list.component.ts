@@ -21,20 +21,20 @@ export class ListComponent extends BaseGridsComponent<Cluster> implements OnInit
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.title = this._('Cluster Management');
         this.refresh();
     }
 
-    refresh() {
+    refresh(): void {
         this.load();
     }
 
-    edit(cluster: Cluster) {
+    edit(cluster: Cluster): void {
         this.redirect(['/clusters', cluster.id]);
     }
 
-    delete(cluster: Cluster) {
+    delete(cluster: Cluster): void {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.clustersService.delete(cluster).subscribe((any) => {
                 this.refresh()

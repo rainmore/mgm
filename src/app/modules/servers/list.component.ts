@@ -1,11 +1,10 @@
-import { Component, Input, OnInit }        from '@angular/core';
-import { first }                           from 'rxjs/operators';
-import { BaseGridsComponent }              from "../base/grids/base-grids.component";
-import { Cluster, Region, Server, Tenant } from "../../domains";
-import { LanguageService }                 from "../../services/i18n";
-import { ActivatedRoute, Router }          from "@angular/router";
-import { ServersService }                  from "../../services/servers";
-import { sprintf }                         from "sprintf-js";
+import { Component, Input, OnInit } from '@angular/core';
+import { BaseGridsComponent }       from "../base/grids/base-grids.component";
+import { Cluster, Region, Server }  from "../../domains";
+import { LanguageService }          from "../../services/i18n";
+import { ActivatedRoute, Router }   from "@angular/router";
+import { ServersService }           from "../../services/servers";
+import { sprintf }                  from "sprintf-js";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent extends BaseGridsComponent<Server> implements OnInit {
@@ -20,20 +19,20 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.title = this._('Servers Management');
         this.refresh();
     }
 
-    refresh() {
+    refresh(): void {
         this.load();
     }
 
-    edit(server: Server) {
+    edit(server: Server): void {
         this.redirect(['/servers', server.id]);
     }
 
-    delete(server: Server) {
+    delete(server: Server): void {
         if (window.confirm(this._('Are you sure you want to delete this entity?'))) {
             this.serversService.delete(server).subscribe((any) => {
                 this.refresh();
@@ -41,13 +40,33 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
         }
     }
 
-    toggleActive(server: Server) {
+    toggleActive(server: Server): void {
         const active = server.active;
         server.active = !active;
 
         this.serversService.update(server).subscribe((updatedServer: Server) => {
             server = updatedServer;
         });
+    }
+
+    getName(server: Server): string {
+        return server.name;
+    }
+
+    getClusterName(server: Server): string {
+        return server.cluster ? server.cluster.name : null;
+    }
+
+    getRegionName(server: Server): string {
+        if (server.region) {
+            return server.region.name;
+        }
+        else if (server.cluster) {
+            return server.cluster.region.name
+        }
+        else {
+            return null;
+        }
     }
 
     /**
@@ -63,6 +82,11 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
                 });
                 item.getCluster().subscribe((cluster: Cluster) => {
                     item.cluster = cluster;
+                    if (item.cluster) {
+                        item.cluster.getRegion().subscribe((region: Region) => {
+                            item.cluster.region = region;
+                        });
+                    }
                 });
             });
         });
