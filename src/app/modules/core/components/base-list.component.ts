@@ -11,11 +11,6 @@ export abstract class BaseListComponent<Entity extends Resource> extends BaseCom
     @Output() onRefresh = new EventEmitter<void>();
     @Output() onFilter = new EventEmitter<string>();
 
-    /**
-     * Pagination information.
-     */
-    page: Page = new Page();
-
     constructor(languageService: LanguageService) {
         super(languageService);
     }

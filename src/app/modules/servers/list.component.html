@@ -59,10 +59,13 @@
                             </td>
                         </tr>
                         <tr *ngIf="!data.length">
-                            <td colspan="4" class="italic text-center"><span>{{ _('No results') }}</span></td>
+                            <td colspan="9" class="italic text-center"><span>{{ _('No results') }}</span></td>
                         </tr>
                     </tbody>
                 </table>
+            </section>
+            <section class="panel-content col-xs">
+                <pagination [baseUri]="getBaseUri()" [page]="page" (pageable)="toPage($event)"></pagination>
             </section>
         </article>
     </section>

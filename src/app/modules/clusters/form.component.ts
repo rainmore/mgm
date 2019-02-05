@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { RegionsService }                                  from "../../services/regions";
 import { ActivatedRoute, Router }                          from "@angular/router";
 import { ClustersService }                                 from "../../services/clusters";
+import { RouteService }                                    from "../base/route.service";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Cluster> implements OnInit {
@@ -18,9 +19,8 @@ export class FormComponent extends BaseFormComponent<Cluster> implements OnInit 
         private regionService:   RegionsService,
         private formBuilder:     FormBuilder,
                 languageService: LanguageService,
-                activatedRoute:   ActivatedRoute,
-                router:           Router) {
-        super(languageService, activatedRoute, router);
+                routeService: RouteService,) {
+        super(languageService, routeService);
 
         this.initForm(this.entity)
     }
@@ -59,7 +59,7 @@ export class FormComponent extends BaseFormComponent<Cluster> implements OnInit 
             else {
                 this.clustersService.create(this.entity).subscribe((entity: Cluster) => {
                     this.loading = false;
-                    this.redirect([this.getBaseUri(), entity.id]);
+                    this.routeService.navigate([this.getBaseUri(), entity.id]);
                 });
             }
         }

@@ -4,6 +4,7 @@ import { BaseFormComponent }      from "../base";
 import { Cluster, Server }        from "../../domains";
 import { LanguageService }        from "../../services/i18n";
 import { ActivatedRoute, Router } from "@angular/router";
+import { RouteService }           from "../base/route.service";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Server> implements OnInit {
@@ -11,9 +12,8 @@ export class FormComponent extends BaseFormComponent<Server> implements OnInit {
     private entity: Server = new Server();
 
     constructor(languageService: LanguageService,
-                activatedRoute:   ActivatedRoute,
-                router:           Router) {
-        super(languageService, activatedRoute, router);
+                routeService: RouteService) {
+        super(languageService, routeService);
 
     }
 

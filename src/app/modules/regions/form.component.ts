@@ -5,6 +5,7 @@ import { Region }                                          from "../../domains";
 import { ActivatedRoute, Router }                          from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { RegionsService }                                  from "../../services/regions";
+import { RouteService }                                    from "../base/route.service";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Region> implements OnInit {
@@ -15,10 +16,8 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
         private regionService:    RegionsService,
         private formBuilder:      FormBuilder,
         languageService:  LanguageService,
-        activatedRoute:   ActivatedRoute,
-        router:           Router,
-    ) {
-        super(languageService, activatedRoute, router);
+        routeService: RouteService) {
+        super(languageService, routeService);
         this.initForm(this.entity);
     }
 
@@ -55,7 +54,7 @@ export class FormComponent extends BaseFormComponent<Region> implements OnInit {
             else {
                 this.regionService.create(this.entity).subscribe((region: Region) => {
                     this.loading = false;
-                    this.redirect([this.getBaseUri(), region.id]);
+                    this.routeService.navigate([this.getBaseUri(), region.id]);
                 });
             }
         }

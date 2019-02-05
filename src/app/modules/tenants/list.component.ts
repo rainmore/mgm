@@ -1,13 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output }                  from '@angular/core';
-import { BaseGridsComponent }                                              from "../base/grids/base-grids.component";
-import { Cluster, Tenant }                                                 from "../../domains";
-import { LanguageService }                                                 from "../../services/i18n";
-import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from "../../services/tenants";
-import { ActivatedRoute, Router }                                          from "@angular/router";
-import { sprintf }                                                         from "sprintf-js";
+import { Component, EventEmitter, Input, Output }                          from '@angular/core';
+import { BaseGridsComponent }                                              from '../base/grids/base-grids.component';
+import { Cluster, Tenant }                                                 from '../../domains';
+import { LanguageService }                                                 from '../../services/i18n';
+import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from '../../services/tenants';
+import { sprintf }                                                         from 'sprintf-js';
+import { Pageable }                                                        from '../../services/common';
+import { RouteService }                                                    from '../base/route.service';
+import { PaginationService }                                               from '../core/data/pagination.service';
+import { Projection }                                                      from '../../services/base-rest-service';
 
 @Component({templateUrl: 'list.component.html'})
-export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit {
+export class ListComponent extends BaseGridsComponent<Tenant> {
 
     @Input() data: Tenant[] = [];
 
@@ -17,24 +20,24 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
         private tenantsService:       TenantsService,
         private rolloutGroupsService: TenantsRolloutGroupsService,
         private rtoService:           TenantsRtosService,
-    languageService: LanguageService,
-    activatedRoute:   ActivatedRoute,
-    router:           Router) {
-    super(languageService, activatedRoute, router);
+                languageService:      LanguageService,
+                routeService:         RouteService,
+                paginationService: PaginationService) {
+        super(languageService, routeService, paginationService);
 
+    }
+
+    getBaseUri(): string {
+        return '/tenants';
     }
 
     ngOnInit(): void {
+        super.ngOnInit();
         this.title = this._('Tenants Management');
-        this.refresh();
-    }
-
-    refresh(): void {
-        this.load();
     }
 
     edit(tenant: Tenant): void {
-        this.redirect(['/tenants', tenant.id]);
+        this.routeService.navigate([this.getBaseUri(), tenant.id]);
     }
 
     delete(tenant: Tenant): void {
@@ -62,10 +65,12 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
         });
     }
 
-    private load(): void {
-        this.tenantsService.getAll().subscribe((data: Tenant[]) => {
-            this.titleTag = sprintf('%s %s', this.tenantsService.totalElement(), this._('Tenants'));
+    toPage(pageable: Pageable): void {
+        this.tenantsService.findAll(Projection.none, pageable).subscribe((data: Tenant[]) => {
             this.data = data;
+            this.page = this.tenantsService.getPage();
+            this.titleTag = sprintf('%s %s', this.page.totalElements, this._('Tenants'));
+
             this.data.forEach(item => {
                 item.getCluster().subscribe((cluster: Cluster) => {
                     item.cluster = cluster;
@@ -73,4 +78,7 @@ export class ListComponent extends BaseGridsComponent<Tenant> implements OnInit 
             });
         });
     }
+
+
+
 }

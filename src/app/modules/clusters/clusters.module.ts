@@ -7,12 +7,14 @@ import { FormComponent }         from "./form.component";
 import { ListComponent }         from "./list.component";
 import { BaseModule }            from "../base";
 import { ClustersService }       from "../../services/clusters";
+import { DataModule }            from "../core/data";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ClustersRoutingModule,
+        DataModule,
         BaseModule
     ],
     declarations: [

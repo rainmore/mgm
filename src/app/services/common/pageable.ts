@@ -1,11 +1,14 @@
 /**
  * Object that represents a basic pageable.
  */
+import { Sort }   from "angular4-hal";
+
+
 export class Pageable {
     constructor(
         public page: number,
         public size: number,
-        public sort: Array<string>
+        public sort: Sort[]
     ) {
     }
 
@@ -19,8 +22,42 @@ export class Pageable {
         return new Pageable(page, size, []);
     }
 
-    withSort(sort: string[]): Pageable {
+    clone(): Pageable {
+        return new Pageable(this.page, this.size, this.sort);
+    }
+
+    withSort(sort: Sort[]): Pageable {
+        const pageable = this.clone();
         this.sort = sort;
         return this;
     }
+
+    withPage(page: number): Pageable {
+        this.page = page;
+        return this;
+    }
+
+    withSize(size: number): Pageable {
+        this.size = size;
+        return this;
+    }
+
+    ofSort(sort: Sort[]): Pageable {
+        const pageable = this.clone();
+        pageable.sort = sort;
+        return pageable;
+    }
+
+    ofPage(page: number): Pageable {
+        const pageable = this.clone();
+        pageable.page = page;
+        return pageable;
+    }
+
+    ofSize(size: number): Pageable {
+        const pageable = this.clone();
+        pageable.size = size;
+        return pageable;
+    }
+
 }

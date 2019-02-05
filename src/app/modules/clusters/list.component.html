@@ -45,6 +45,10 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <section class="panel-content col-xs">
+                    <pagination [baseUri]="getBaseUri()" [page]="page" (pageable)="toPage($event)"></pagination>
+                </section>
             </section>
         </article>
     </section>

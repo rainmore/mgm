@@ -3,6 +3,7 @@ import { AbstractControl }        from "@angular/forms";
 import { ErrorMessage }           from "../../domains";
 import { ActivatedRoute, Router } from "@angular/router";
 import URI = uri.URI;
+import { RouteService }           from "./route.service";
 
 /**
  * Base component with generic functionality.
@@ -20,7 +21,7 @@ export abstract class BaseComponent {
      */
     errors: Error[] = [];
 
-    constructor(protected languageService: LanguageService, protected activatedRoute: ActivatedRoute, protected router: Router) {
+    constructor(protected languageService: LanguageService, protected routeService: RouteService) {
 
     }
 
@@ -78,11 +79,4 @@ export abstract class BaseComponent {
         window.scrollTo(0, 0);
     }
 
-    protected getRequestParam(param: string) {
-        return this.activatedRoute.snapshot.paramMap.get(param);
-    }
-
-    protected redirect(commands: any[]) {
-        this.router.navigate(commands);
-    }
 }

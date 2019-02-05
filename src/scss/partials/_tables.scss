@@ -39,3 +39,78 @@
         }
     }
 }
+
+// https://github.com/michaelbromley/ngx-pagination/blob/master/src/template.ts
+.wm-pagination {
+    padding: 0.5rem 0;
+    border-top: 1px solid #d9dfe9;
+    margin-bottom: 0 !important;
+
+    &:before, &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    li {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+
+        display: inline-block;
+
+        margin-right: 0.0625rem;
+        border-radius: 0;
+    }
+
+    a, button {
+        color: #0a0a0a;
+        display: block;
+        padding: 0.1875rem 0.625rem;
+        border-radius: 0;
+
+        cursor: pointer;
+
+        &:hover {
+            background: #e6e6e6;
+        }
+    }
+
+
+    .current {
+        padding: 0.1875rem 0.625rem;
+        background: #2199e8;
+        color: #fefefe;
+        cursor: default;
+    }
+
+    .disabled {
+        padding: 0.1875rem 0.625rem;
+        color: #cacaca;
+        cursor: default;
+
+        &:hover {
+            background: transparent;
+        }
+    }
+
+    .small-screen {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 601px) {
+    .pagination {
+        &.responsive {
+            .small-screen {
+                display: inline-block;
+            }
+        }
+
+        li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {
+            display: none; }
+    }
+}

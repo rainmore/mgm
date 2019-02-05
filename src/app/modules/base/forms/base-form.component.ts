@@ -47,11 +47,11 @@ export abstract class BaseFormComponent<Entity extends Identifiable<any> & Resou
     protected abstract initForm(entity: Entity): void;
 
     protected getId() {
-        return this.getRequestParam('id');
+        return this.routeService.getRequestParam('id');
     }
 
     goBack(): void {
-        this.redirect([this.getBaseUri()]);
+        this.routeService.navigate([this.getBaseUri()]);
     }
 
     // see https://angular.io/api/forms/SelectControlValueAccessor#customizing-option-selection

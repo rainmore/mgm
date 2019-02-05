@@ -1,40 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LanguageService }          from "../../services/i18n";
-import { RegionsService }           from "../../services/regions";
-import { BaseGridsComponent }       from "../base";
-import { Region }                   from "../../domains";
-import { ActivatedRoute, Router }   from "@angular/router";
-import { sprintf }                  from "sprintf-js";
+import { Component, Input }   from '@angular/core';
+import { LanguageService }    from '../../services/i18n';
+import { RegionsService }     from '../../services/regions';
+import { BaseGridsComponent } from '../base';
+import { Region }             from '../../domains';
+import { sprintf }            from 'sprintf-js';
+import { RouteService }       from '../base/route.service';
+import { PaginationService }  from '../core/data/pagination.service';
+import { Projection }         from '../../services/base-rest-service';
+import { Pageable }           from '../../services/common';
 
 const searchFields: Array<string> = [ 'name', 'displayName' ];
 const sortFields: Array<string> = [ 'displayName' ];
 
 
 @Component({templateUrl: 'list.component.html'})
-export class ListComponent extends BaseGridsComponent<Region> implements OnInit {
+export class ListComponent extends BaseGridsComponent<Region> {
 
     @Input() data: Region[] = [];
 
     constructor(
-        private regionService: RegionsService,
+        private regionService:   RegionsService,
                 languageService: LanguageService,
-                activatedRoute:   ActivatedRoute,
-                router:           Router
-        ) {
-        super(languageService, activatedRoute, router);
+                routeService:    RouteService,
+                paginationService: PaginationService) {
+        super(languageService, routeService, paginationService);
+    }
+
+    getBaseUri(): string {
+        return '/regions';
     }
 
     ngOnInit(): void {
+        super.ngOnInit();
         this.title = this._('Regions Management');
-        this.refresh();
-    }
-
-    refresh(): void {
-        this.load();
     }
 
     edit(region: Region): void {
-        this.router.navigate(['/regions', region.id]);
+        this.routeService.navigate([this.getBaseUri(), region.id]);
     }
 
     delete(region: Region): void {
@@ -45,13 +47,12 @@ export class ListComponent extends BaseGridsComponent<Region> implements OnInit 
         }
     }
 
-    /**
-     * Load the clusters data.
-     */
-    private load(): void {
-        this.regionService.getAll().subscribe((data: Region[]) => {
-            this.titleTag = sprintf('%s %s', this.regionService.totalElement(), this._('Regions'));
-            this.data = data;
-        });
+    toPage(pageable: Pageable): void {
+        this.regionService.findAll(Projection.none, pageable)
+            .subscribe((data: Region[]) => {
+                this.data = data;
+                this.page = this.regionService.getPage();
+                this.titleTag = sprintf('%s %s', this.page.totalElements, this._('Regions'));
+            });
     }
 }

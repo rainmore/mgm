@@ -9,6 +9,7 @@ import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from 
 import { BaseFormComponent }                                               from "../base";
 import { RolloutGroup }                                                    from "../../domains/tenants/rollout-group";
 import { Rto }                                                             from "../../domains/tenants/rto";
+import { RouteService }                                                    from "../base/route.service";
 
 @Component({templateUrl: 'form.component.html'})
 export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
@@ -26,9 +27,8 @@ export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
                 private rtoService:           TenantsRtosService,
                 private flashService:         FlashService,
                     languageService: LanguageService,
-                    activatedRoute:   ActivatedRoute,
-                    router:           Router) {
-    super(languageService, activatedRoute, router);
+                    routeService: RouteService) {
+    super(languageService, routeService);
 
     }
 
@@ -108,7 +108,7 @@ export class FormComponent extends BaseFormComponent<Tenant> implements OnInit {
     }
 
     goToListPage() {
-        this.router.navigate(['/tenants']);
+        this.routeService.navigate(['/tenants']);
     }
 
     save(): void {

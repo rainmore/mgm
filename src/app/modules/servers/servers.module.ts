@@ -7,12 +7,14 @@ import { ListComponent }        from "./list.component";
 import { ServersRoutingModule } from "./servers-routing.module";
 import { BaseModule }           from "../base";
 import { ServersService }       from "../../services/servers";
+import { DataModule }           from "../core/data";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ServersRoutingModule,
+        DataModule,
         BaseModule
     ],
     declarations: [

@@ -7,6 +7,7 @@ import { RegionsService }        from "../../services/regions";
 import { HalConfiguration }      from "../../configs";
 import { AngularHalModule }      from "angular4-hal";
 import { ErrorMessageBuilder }   from "../core/forms";
+import { RouteService }          from "./route.service";
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { ErrorMessageBuilder }   from "../core/forms";
         {provide: 'ExternalConfigurationService', useClass: HalConfiguration},
         ErrorMessageBuilder,
         LanguageService,
-        RegionsService
+        RegionsService,
+        RouteService
     ]
 })
 export class BaseModule {

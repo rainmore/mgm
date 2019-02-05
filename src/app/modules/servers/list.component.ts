@@ -1,35 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BaseGridsComponent }       from "../base/grids/base-grids.component";
-import { Cluster, Region, Server }  from "../../domains";
-import { LanguageService }          from "../../services/i18n";
-import { ActivatedRoute, Router }   from "@angular/router";
-import { ServersService }           from "../../services/servers";
-import { sprintf }                  from "sprintf-js";
+import { Component, Input }        from '@angular/core';
+import { BaseGridsComponent }      from '../base/grids/base-grids.component';
+import { Cluster, Region, Server } from '../../domains';
+import { LanguageService }         from '../../services/i18n';
+import { ServersService }          from '../../services/servers';
+import { sprintf }                 from 'sprintf-js';
+import { RouteService }            from '../base/route.service';
+import { PaginationService }       from '../core/data/pagination.service';
+import { Projection }              from '../../services/base-rest-service';
+import { Pageable }                from '../../services/common';
 
-@Component({templateUrl: 'list.component.html'})
-export class ListComponent extends BaseGridsComponent<Server> implements OnInit {
+@Component({
+    templateUrl: 'list.component.html'
+})
+export class ListComponent extends BaseGridsComponent<Server> {
 
     @Input() data: Server[] = [];
 
     constructor(private serversService: ServersService,
                 languageService: LanguageService,
-                activatedRoute:   ActivatedRoute,
-                router:           Router) {
-        super(languageService, activatedRoute, router);
+                routeService: RouteService,
+                paginationService: PaginationService) {
+        super(languageService, routeService, paginationService);
 
+    }
+
+    getBaseUri(): string {
+        return '/servers';
     }
 
     ngOnInit(): void {
+        super.ngOnInit();
         this.title = this._('Servers Management');
-        this.refresh();
-    }
-
-    refresh(): void {
-        this.load();
     }
 
     edit(server: Server): void {
-        this.redirect(['/servers', server.id]);
+        this.routeService.navigate([this.getBaseUri(), server.id]);
     }
 
     delete(server: Server): void {
@@ -69,13 +74,13 @@ export class ListComponent extends BaseGridsComponent<Server> implements OnInit 
         }
     }
 
-    /**
-     * Load the clusters data.
-     */
-    private load(): void {
-        this.serversService.getAll().subscribe((data: Server[]) => {
-            this.titleTag = sprintf('%s %s', this.serversService.totalElement(), this._('Clusters'));
+    toPage(pageable: Pageable): void {
+        this.serversService.findAll(Projection.none, pageable).subscribe((data: Server[]) => {
             this.data = data;
+            this.page = this.serversService.getPage();
+
+            this.titleTag = sprintf('%s %s', this.page.totalElements, this._('Clusters'));
+
             this.data.forEach(item => {
                 item.getRegion().subscribe((region: Region) => {
                     item.region = region;
