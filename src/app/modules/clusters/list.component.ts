@@ -5,7 +5,6 @@ import { LanguageService }    from '../../services/i18n';
 import { ClustersService }    from '../../services/clusters';
 import { sprintf }            from 'sprintf-js';
 import { RouteService }       from '../base/route.service';
-import { PaginationService }  from '../core/data/pagination.service';
 import { Pageable }           from '../../services/common';
 import { Projection }         from '../../services/base-rest-service';
 
@@ -16,9 +15,8 @@ export class ListComponent extends BaseGridsComponent<Cluster> {
 
     constructor(private clustersService: ClustersService,
                 languageService: LanguageService,
-                routeService: RouteService,
-                paginationService: PaginationService) {
-        super(languageService, routeService, paginationService);
+                routeService: RouteService) {
+        super(languageService, routeService);
 
     }
 
@@ -43,7 +41,7 @@ export class ListComponent extends BaseGridsComponent<Cluster> {
         }
     }
 
-    toPage(pageable: Pageable): void {
+    loadData(pageable: Pageable): void {
         this.clustersService.findAll(Projection.none, pageable).subscribe((data: Cluster[]) => {
             this.data = data;
             this.page = this.clustersService.getPage();

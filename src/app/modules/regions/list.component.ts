@@ -5,7 +5,6 @@ import { BaseGridsComponent } from '../base';
 import { Region }             from '../../domains';
 import { sprintf }            from 'sprintf-js';
 import { RouteService }       from '../base/route.service';
-import { PaginationService }  from '../core/data/pagination.service';
 import { Projection }         from '../../services/base-rest-service';
 import { Pageable }           from '../../services/common';
 
@@ -21,9 +20,8 @@ export class ListComponent extends BaseGridsComponent<Region> {
     constructor(
         private regionService:   RegionsService,
                 languageService: LanguageService,
-                routeService:    RouteService,
-                paginationService: PaginationService) {
-        super(languageService, routeService, paginationService);
+                routeService:    RouteService) {
+        super(languageService, routeService);
     }
 
     getBaseUri(): string {
@@ -47,7 +45,7 @@ export class ListComponent extends BaseGridsComponent<Region> {
         }
     }
 
-    toPage(pageable: Pageable): void {
+    loadData(pageable: Pageable): void {
         this.regionService.findAll(Projection.none, pageable)
             .subscribe((data: Region[]) => {
                 this.data = data;

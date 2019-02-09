@@ -5,7 +5,6 @@ import { LanguageService }         from '../../services/i18n';
 import { ServersService }          from '../../services/servers';
 import { sprintf }                 from 'sprintf-js';
 import { RouteService }            from '../base/route.service';
-import { PaginationService }       from '../core/data/pagination.service';
 import { Projection }              from '../../services/base-rest-service';
 import { Pageable }                from '../../services/common';
 
@@ -18,9 +17,8 @@ export class ListComponent extends BaseGridsComponent<Server> {
 
     constructor(private serversService: ServersService,
                 languageService: LanguageService,
-                routeService: RouteService,
-                paginationService: PaginationService) {
-        super(languageService, routeService, paginationService);
+                routeService: RouteService) {
+        super(languageService, routeService);
 
     }
 
@@ -74,7 +72,7 @@ export class ListComponent extends BaseGridsComponent<Server> {
         }
     }
 
-    toPage(pageable: Pageable): void {
+    loadData(pageable: Pageable): void {
         this.serversService.findAll(Projection.none, pageable).subscribe((data: Server[]) => {
             this.data = data;
             this.page = this.serversService.getPage();

@@ -1,13 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { LanguageService }                                                 from '../../../services/i18n';
 import { BaseComponent }                                                   from '../components';
-import { Page, Pageable }                                                  from '../../../services/common';
-import { RouteService }                                                    from '../../base/route.service';
-import { PaginationService }                                               from './pagination.service';
-
-function coerceToBoolean(input: string | boolean): boolean {
-    return !!input && input !== 'false';
-}
+import { Page }                                                            from '../../../services/common';
 
 @Component({
     selector   : 'pagination',
@@ -17,19 +11,14 @@ function coerceToBoolean(input: string | boolean): boolean {
 export class PaginationComponent extends BaseComponent {
 
     @Input() page: Page = Page.build();
-    @Input() baseUri: string;
     @Input() previousLabel: string = 'Previous';
     @Input() nextLabel: string = 'Next';
-    @Input() screenReaderPaginationLabel: string = 'Pagination';
     @Input() screenReaderPageLabel: string = 'page';
-    @Input() screenReaderCurrentLabel: string = `You're on page`;
     @Input() maxSize: number = 7;
 
-    @Output() pageable = new EventEmitter<Pageable>();
+    @Output() pageNumber = new EventEmitter<number>();
 
-    constructor(languageService: LanguageService,
-                private paginationService: PaginationService,
-                private routeService: RouteService) {
+    constructor(languageService: LanguageService) {
         super(languageService);
     }
 
@@ -53,7 +42,7 @@ export class PaginationComponent extends BaseComponent {
         const arr: number[] = [];
         const current = this.current();
         const range = (page.totalPages > this.maxSize) ? this.maxSize : page.totalPages;
-        const rangeMiddle = Math.ceil(range / 2);
+        const rangeMiddle = Math.floor(range / 2);
         var start = 0;
         var end = range;
         var i = 0;
@@ -105,12 +94,8 @@ export class PaginationComponent extends BaseComponent {
         return !this.isFirst();
     }
 
-    goto(page: number): void {
-        const pageable = this.paginationService.getPageable().ofPage(page);
-        this.routeService.navigate([this.baseUri], {
-            queryParams: this.paginationService.toParams(pageable)
-        });
-        this.pageable.emit(pageable);
+    goto(pageNumber: number): void {
+        this.pageNumber.emit(pageNumber);
     }
 
     gotoFirst(): void {

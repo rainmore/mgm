@@ -6,7 +6,6 @@ import { TenantsRolloutGroupsService, TenantsRtosService, TenantsService } from 
 import { sprintf }                                                         from 'sprintf-js';
 import { Pageable }                                                        from '../../services/common';
 import { RouteService }                                                    from '../base/route.service';
-import { PaginationService }                                               from '../core/data/pagination.service';
 import { Projection }                                                      from '../../services/base-rest-service';
 
 @Component({templateUrl: 'list.component.html'})
@@ -21,9 +20,8 @@ export class ListComponent extends BaseGridsComponent<Tenant> {
         private rolloutGroupsService: TenantsRolloutGroupsService,
         private rtoService:           TenantsRtosService,
                 languageService:      LanguageService,
-                routeService:         RouteService,
-                paginationService: PaginationService) {
-        super(languageService, routeService, paginationService);
+                routeService:         RouteService) {
+        super(languageService, routeService);
 
     }
 
@@ -65,7 +63,7 @@ export class ListComponent extends BaseGridsComponent<Tenant> {
         });
     }
 
-    toPage(pageable: Pageable): void {
+    loadData(pageable: Pageable): void {
         this.tenantsService.findAll(Projection.none, pageable).subscribe((data: Tenant[]) => {
             this.data = data;
             this.page = this.tenantsService.getPage();

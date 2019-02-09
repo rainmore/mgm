@@ -8,7 +8,6 @@ import { SearchService }       from './search.service';
 import { PaginationComponent } from "./pagination.component";
 import { CommonModule }        from '@angular/common';
 import { RouteService }        from "../../base/route.service";
-import { PaginationService }   from "./pagination.service";
 import { BaseModule }          from "../../base";
 
 @NgModule({
@@ -31,7 +30,6 @@ import { BaseModule }          from "../../base";
         PaginationComponent,
         SearchService,
         RouteService,
-        PaginationService,
         {provide: 'ExternalConfigurationService', useClass: HalConfiguration}
     ]
 })
