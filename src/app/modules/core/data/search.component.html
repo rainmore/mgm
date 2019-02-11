@@ -1,10 +1,14 @@
-<div class="input-group input-group-sm">
-    <input class="form-control"
-           [(ngModel)]="searchTerm"
-           (keydown.enter)="search()" />
-    <span class="input-group-btn">
-        <button class="btn btn-default" type="button" (click)="search()">
-            {{ _('Search') }}
-        </button>
-    </span>
-</div>
+<form (ngSubmit)="search()" id="search-form">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input type="text" class="form-control form-control-sm mb-2"
+                   [(ngModel)]="searchTerm"
+                   (keydown.enter)="search()" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary btn-sm mb-2" >
+                {{ _('Search') }}
+            </button>
+        </div>
+    </div>
+</form>
